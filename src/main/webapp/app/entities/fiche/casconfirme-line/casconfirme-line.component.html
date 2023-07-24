@@ -1,0 +1,32 @@
+<div class="row">
+  <form class="row">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Cas Confirme</mat-label>
+    </mat-form-field>
+
+    <div class="row mb-3">
+      <label class="form-label" for="field_code_registre">Code Registre</label>
+      <input
+        type="text"
+        class="form-control"
+        name="code_registre"
+        id="field_code_registre"
+        data-cy="code_registre"
+        formControlName="code_registre"
+      />
+      <div
+        *ngIf="editForm.get('code_registre')!.invalid && (editForm.get('code_registre')!.dirty || editForm.get('code_registre')!.touched)"
+      >
+        <small class="form-text text-danger" *ngIf="editForm.get('code_registre')?.errors?.required"> This field is required. </small>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label class="form-label" for="field_lien_parente">Lien Parente</label>
+      <select class="form-control" name="lien_parente" formControlName="lien_parente" id="field_lien_parente" data-cy="lien_parente">
+        <option [ngValue]="null"></option>
+        <option *ngFor="let elien_parente of elien_parenteValues" [value]="elien_parente">elien_parente</option>
+      </select>
+    </div>
+  </form>
+</div>

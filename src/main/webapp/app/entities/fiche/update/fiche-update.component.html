@@ -1034,6 +1034,14 @@
         </div>
       </div>
 
+      <div style="margin-bottom: 10px" *ngFor="let line of casConfirmeLines; let i = index">
+        <jhi-casconfirme-line [casConfirmeLine]="line" [index]="i" (estimateLineDeleted)="handleCasConfirmeLineDeleted($event)">
+        </jhi-casconfirme-line>
+        i
+      </div>
+
+      <button type="button" (click)="addCasConfirmeLine()">Add Line</button>
+
       <div>
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
           <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -49,6 +49,9 @@ import { eechelledepistage } from 'app/entities/enumerations/eechelledepistage.m
 import { enouveaux_cas_depistes } from 'app/entities/enumerations/enouveaux-cas-depistes.model';
 import { elienparente1 } from 'app/entities/enumerations/elienparente-1.model';
 import { elienparente2 } from 'app/entities/enumerations/elienparente-2.model';
+import { elien_parente } from 'app/entities/enumerations/elien-parente.model';
+
+import { ICasconfirme } from '../../casconfirme/casconfirme.model';
 
 @Component({
   selector: 'jhi-fiche-update',
@@ -102,6 +105,8 @@ export class FicheUpdateComponent implements OnInit {
 
   editForm: FicheFormGroup = this.ficheFormService.createFicheFormGroup();
 
+  casConfirmeLines: ICasconfirme[] = [];
+
   constructor(
     protected ficheService: FicheService,
     protected ficheFormService: FicheFormService,
@@ -112,6 +117,18 @@ export class FicheUpdateComponent implements OnInit {
   comparePathologie = (o1: IPathologie | null, o2: IPathologie | null): boolean => this.pathologieService.comparePathologie(o1, o2);
 
   ngOnInit(): void {
+    const newLine: ICasconfirme = {
+      id: 0,
+      code_registre: '',
+      lien_parente: elien_parente.NP,
+      fiche: this.fiche,
+    };
+
+    // Add the new estimate line to the array
+    this.casConfirmeLines.push(newLine);
+    this.casConfirmeLines.push(newLine);
+    this.casConfirmeLines.push(newLine);
+
     this.activatedRoute.data.subscribe(({ fiche }) => {
       this.fiche = fiche;
       if (fiche) {
@@ -136,6 +153,24 @@ export class FicheUpdateComponent implements OnInit {
     }
   }
 
+  addCasConfirmeLine(): void {
+    console.log('Hello this is addCasConfirmeLine');
+    // Create a new instance of the estimate line
+    const newLine: ICasconfirme = {
+      id: 0,
+      code_registre: '',
+      lien_parente: elien_parente.NP,
+      fiche: this.fiche,
+    };
+
+    // Add the new estimate line to the array
+    this.casConfirmeLines.push(newLine);
+  }
+
+  handleCasConfirmeLineDeleted(index: any): void {
+    this.casConfirmeLines.splice(index, 1);
+  }
+
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IFiche>>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe({
       next: () => this.onSaveSuccess(),
@@ -144,10 +179,12 @@ export class FicheUpdateComponent implements OnInit {
   }
 
   protected onSaveSuccess(): void {
+    console.log('saving .....');
     this.previousState();
   }
 
   protected onSaveError(): void {
+    console.log('saving error .....');
     // Api for inheritance.
   }
 
