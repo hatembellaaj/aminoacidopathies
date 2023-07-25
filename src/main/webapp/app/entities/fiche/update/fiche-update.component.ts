@@ -125,9 +125,9 @@ export class FicheUpdateComponent implements OnInit {
     };
 
     // Add the new estimate line to the array
+    /*this.casConfirmeLines.push(newLine);
     this.casConfirmeLines.push(newLine);
-    this.casConfirmeLines.push(newLine);
-    this.casConfirmeLines.push(newLine);
+    this.casConfirmeLines.push(newLine);*/
 
     this.activatedRoute.data.subscribe(({ fiche }) => {
       this.fiche = fiche;
@@ -145,7 +145,9 @@ export class FicheUpdateComponent implements OnInit {
 
   save(): void {
     this.isSaving = true;
+
     const fiche = this.ficheFormService.getFiche(this.editForm);
+    fiche.casconfirmes = this.casConfirmeLines;
     if (fiche.id !== null) {
       this.subscribeToSaveResponse(this.ficheService.update(fiche));
     } else {

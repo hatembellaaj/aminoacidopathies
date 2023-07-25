@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ICasconfirme } from '../../casconfirme/casconfirme.model';
 
 import { IFiche, NewFiche } from '../fiche.model';
 
@@ -98,6 +99,7 @@ type FicheFormGroupContent = {
   nomre_de_grossesses_poursuivies: FormControl<IFiche['nomre_de_grossesses_poursuivies']>;
   nombre_de_foetus_sains: FormControl<IFiche['nombre_de_foetus_sains']>;
   pathologie: FormControl<IFiche['pathologie']>;
+  //casconfirmes: FormControl<IFiche['casconfirmes']>;
 };
 
 export type FicheFormGroup = FormGroup<FicheFormGroupContent>;
@@ -201,6 +203,7 @@ export class FicheFormService {
       pathologie: new FormControl(ficheRawValue.pathologie, {
         validators: [Validators.required],
       }),
+      //casconfirmes:   new FormControl(ficheRawValue.casconfirmes)
     });
   }
 

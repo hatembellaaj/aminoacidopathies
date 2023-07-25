@@ -350,7 +350,7 @@ public class Fiche implements Serializable {
 
     @OneToMany(mappedBy = "fiche")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "fiche" }, allowSetters = true)
+    //@JsonIgnoreProperties(value = { "fiche" }, allowSetters = true)
     private Set<Casconfirme> casconfirmes = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

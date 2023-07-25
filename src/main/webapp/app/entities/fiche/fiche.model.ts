@@ -40,6 +40,7 @@ import { eechelledepistage } from 'app/entities/enumerations/eechelledepistage.m
 import { enouveaux_cas_depistes } from 'app/entities/enumerations/enouveaux-cas-depistes.model';
 import { elienparente1 } from 'app/entities/enumerations/elienparente-1.model';
 import { elienparente2 } from 'app/entities/enumerations/elienparente-2.model';
+import { ICasconfirme } from '../casconfirme/casconfirme.model';
 
 export interface IFiche {
   id: number;
@@ -123,6 +124,7 @@ export interface IFiche {
   nomre_de_grossesses_poursuivies?: number | null;
   nombre_de_foetus_sains?: number | null;
   pathologie?: Pick<IPathologie, 'id'> | null;
+  casconfirmes?: ICasconfirme[] | null;
 }
 
 export type NewFiche = Omit<IFiche, 'id'> & { id: null };
