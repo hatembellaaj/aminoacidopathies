@@ -22,7 +22,7 @@
                 aria-expanded="true"
                 aria-controls="panelsStayOpen-collapseOne"
               >
-                Accordion Item #1
+                PATHOLOGIE
               </button>
             </h2>
             <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
@@ -39,7 +39,7 @@
                   >
                     <option *ngIf="!editForm.get('pathologie')!.value" [ngValue]="null" selected></option>
                     <option [ngValue]="pathologieOption" *ngFor="let pathologieOption of pathologiesSharedCollection">
-                      {{ pathologieOption.id }}
+                      {{ pathologieOption.nom }}
                     </option>
                   </select>
                 </div>
@@ -74,7 +74,24 @@
                     <small class="form-text text-danger" *ngIf="editForm.get('datemaj')?.errors?.required"> This field is required. </small>
                   </div>
                 </div>
-
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+              <button
+                class="accordion-button"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#panelsStayOpen-collapseOne"
+                aria-expanded="true"
+                aria-controls="panelsStayOpen-collapseOne"
+              >
+                IDENTIFICATION DU PATIENT
+              </button>
+            </h2>
+            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+              <div class="accordion-body">
                 <div class="row mb-3">
                   <label class="form-label" for="field_type_observation">Type Observation</label>
                   <input
@@ -117,30 +134,12 @@
                     </button>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
 
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-              <button
-                class="accordion-button"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#panelsStayOpen-collapseOne"
-                aria-expanded="true"
-                aria-controls="panelsStayOpen-collapseOne"
-              >
-                Accordion Item #1
-              </button>
-            </h2>
-            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-              <div class="accordion-body">
                 <div class="row mb-3">
                   <label class="form-label" for="field_sexe">Sexe</label>
                   <select class="form-control" name="sexe" formControlName="sexe" id="field_sexe" data-cy="sexe">
                     <option [ngValue]="null"></option>
-                    <option *ngFor="let esexe of esexeValues" [value]="esexe">esexe</option>
+                    <option *ngFor="let esexe of esexeValues" [value]="esexe">{{ esexe }}</option>
                   </select>
                 </div>
 
@@ -323,7 +322,25 @@
                     <option *ngFor="let eactivite of eactiviteValues" [value]="eactivite">eactivite</option>
                   </select>
                 </div>
+              </div>
+            </div>
+          </div>
 
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+              <button
+                class="accordion-button"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#panelsStayOpen-collapseOne"
+                aria-expanded="true"
+                aria-controls="panelsStayOpen-collapseOne"
+              >
+                PARCOURS DE SOIN
+              </button>
+            </h2>
+            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+              <div class="accordion-body">
                 <div class="row mb-3">
                   <label class="form-label" for="field_btravail">Btravail</label>
                   <input
