@@ -2,6 +2,7 @@ package tn.mdweb.aminoacidopathies.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -57,14 +58,11 @@ public class FicheService {
         Fiche fiche = ficheMapper.toEntity(ficheDTO);
         fiche = ficheRepository.save(fiche);
 
-        /*    FicheDTO fdto = ficheMapper.toDto(fiche) ;
-        List<CasconfirmeDTO> lcc = ficheDTO.getCasconfirmes() ;
-        for (int i=0;i<lcc.size();i++)
-        {
-        	lcc.get(i).setFiche(fdto);
-        	Casconfirme casconfirme = casconfirmeMapper.toEntity(lcc.get(i));
-        	this.casconfirmeRepository.save(casconfirme);
-        }*/
+        FicheDTO fdto = ficheMapper.toDto(fiche);
+        Set<Casconfirme> lcc = ficheDTO.getCasconfirmes();
+        lcc.forEach(e -> {
+            this.casconfirmeRepository.save(e);
+        });
 
         return ficheMapper.toDto(fiche);
     }
