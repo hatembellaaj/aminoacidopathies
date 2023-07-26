@@ -41,6 +41,7 @@ import { enouveaux_cas_depistes } from 'app/entities/enumerations/enouveaux-cas-
 import { elienparente1 } from 'app/entities/enumerations/elienparente-1.model';
 import { elienparente2 } from 'app/entities/enumerations/elienparente-2.model';
 import { ICasconfirme } from '../casconfirme/casconfirme.model';
+import { IStructurefiche } from '../structurefiche/structurefiche.model';
 
 export interface IFiche {
   id: number;
@@ -125,6 +126,7 @@ export interface IFiche {
   nombre_de_foetus_sains?: number | null;
   pathologie?: Pick<IPathologie, 'id'> | null;
   casconfirmes?: ICasconfirme[] | null;
+  structurefiches?: IStructurefiche[] | null;
 }
 
 export type NewFiche = Omit<IFiche, 'id'> & { id: null };

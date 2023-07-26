@@ -50,8 +50,10 @@ import { enouveaux_cas_depistes } from 'app/entities/enumerations/enouveaux-cas-
 import { elienparente1 } from 'app/entities/enumerations/elienparente-1.model';
 import { elienparente2 } from 'app/entities/enumerations/elienparente-2.model';
 import { elien_parente } from 'app/entities/enumerations/elien-parente.model';
+import { etypestructure } from 'app/entities/enumerations/etypestructure.model';
 
 import { ICasconfirme } from '../../casconfirme/casconfirme.model';
+import { IStructurefiche } from '../../structurefiche/structurefiche.model';
 
 @Component({
   selector: 'jhi-fiche-update',
@@ -106,6 +108,7 @@ export class FicheUpdateComponent implements OnInit {
   editForm: FicheFormGroup = this.ficheFormService.createFicheFormGroup();
 
   casConfirmeLines: ICasconfirme[] = [];
+  structureFicheLines: IStructurefiche[] = [];
 
   constructor(
     protected ficheService: FicheService,
@@ -171,6 +174,27 @@ export class FicheUpdateComponent implements OnInit {
 
   handleCasConfirmeLineDeleted(index: any): void {
     this.casConfirmeLines.splice(index, 1);
+  }
+
+  addStructureFicheLine(): void {
+    console.log('Hello this is addStructureFicheLine');
+    // Create a new instance of the estimate line
+    const newLine: IStructurefiche = {
+      id: 0,
+      typestructure: etypestructure.ORIGINE,
+      ordre: 0,
+      etablissement: { id: 0 },
+      servicesante: { id: 0 },
+      medecin: { id: 0 },
+      fiche: this.fiche,
+    };
+
+    // Add the new estimate line to the array
+    this.structureFicheLines.push(newLine);
+  }
+
+  handleStructureficheLineDeleted(index: any): void {
+    this.structureFicheLines.splice(index, 1);
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IFiche>>): void {

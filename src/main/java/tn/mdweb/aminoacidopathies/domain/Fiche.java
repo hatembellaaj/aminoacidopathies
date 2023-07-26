@@ -353,6 +353,11 @@ public class Fiche implements Serializable {
     //@JsonIgnoreProperties(value = { "fiche" }, allowSetters = true)
     private Set<Casconfirme> casconfirmes = new HashSet<>();
 
+    @OneToMany(mappedBy = "fiche")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    //@JsonIgnoreProperties(value = { "fiche" }, allowSetters = true)
+    private Set<Structurefiche> structurefiches = new HashSet<>();
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -1412,6 +1417,14 @@ public class Fiche implements Serializable {
         return this.casconfirmes;
     }
 
+    public Set<Structurefiche> getStructurefiches() {
+        return structurefiches;
+    }
+
+    public void setStructurefiches(Set<Structurefiche> structurefiches) {
+        this.structurefiches = structurefiches;
+    }
+
     public void setCasconfirmes(Set<Casconfirme> casconfirmes) {
         if (this.casconfirmes != null) {
             this.casconfirmes.forEach(i -> i.setFiche(null));
@@ -1458,90 +1471,176 @@ public class Fiche implements Serializable {
         return getClass().hashCode();
     }
 
-    // prettier-ignore
     @Override
     public String toString() {
-        return "Fiche{" +
-            "id=" + getId() +
-            ", datemaj='" + getDatemaj() + "'" +
-            ", type_observation='" + getType_observation() + "'" +
-            ", identifiant_registre='" + getIdentifiant_registre() + "'" +
-            ", date_enregistrement='" + getDate_enregistrement() + "'" +
-            ", sexe='" + getSexe() + "'" +
-            ", date_naissance='" + getDate_naissance() + "'" +
-            ", statut='" + getStatut() + "'" +
-            ", date_deces='" + getDate_deces() + "'" +
-            ", circonstance_deces='" + getCirconstance_deces() + "'" +
-            ", autre_circonstance_deces='" + getAutre_circonstance_deces() + "'" +
-            ", lieu_deces='" + getLieu_deces() + "'" +
-            ", consanguinite='" + getConsanguinite() + "'" +
-            ", origine_geo_pere_gouvernorat='" + getOrigine_geo_pere_gouvernorat() + "'" +
-            ", origine_geo_mere_gouvernorat='" + getOrigine_geo_mere_gouvernorat() + "'" +
-            ", origine_geo_pere_deleguation='" + getOrigine_geo_pere_deleguation() + "'" +
-            ", origine_geo_mere_deleguation='" + getOrigine_geo_mere_deleguation() + "'" +
-            ", couverture_sociale='" + getCouverture_sociale() + "'" +
-            ", autre_couverture_sociale='" + getAutre_couverture_sociale() + "'" +
-            ", activite='" + getActivite() + "'" +
-            ", btravail='" + getBtravail() + "'" +
-            ", travail='" + getTravail() + "'" +
-            ", scolarise='" + getScolarise() + "'" +
-            ", type_scolarise='" + getType_scolarise() + "'" +
-            ", niveau_scolarisation='" + getNiveau_scolarisation() + "'" +
-            ", cas_familiaux='" + getCas_familiaux() + "'" +
-            ", nbcasconfirme=" + getNbcasconfirme() +
-            ", nbcassuspectes=" + getNbcassuspectes() +
-            ", nbcasdecedes=" + getNbcasdecedes() +
-            ", deces_en_bas_age='" + getDeces_en_bas_age() + "'" +
-            ", nbcas_deces_age_bas=" + getNbcas_deces_age_bas() +
-            ", circonstances_decouverte='" + getCirconstances_decouverte() + "'" +
-            ", age_aux_premiers_symptomes='" + getAge_aux_premiers_symptomes() + "'" +
-            ", an_age_premiers_symptomes=" + getAn_age_premiers_symptomes() +
-            ", mois_age_premiers_symptomes=" + getMois_age_premiers_symptomes() +
-            ", jours_premiers_symptomes=" + getJours_premiers_symptomes() +
-            ", age_premiere_consultation='" + getAge_premiere_consultation() + "'" +
-            ", an_age_premiere_consultation=" + getAn_age_premiere_consultation() +
-            ", mois_age_premiere_consultation=" + getMois_age_premiere_consultation() +
-            ", jours_premiere_consultation=" + getJours_premiere_consultation() +
-            ", date_derniere_evaluation='" + getDate_derniere_evaluation() + "'" +
-            ", date_diagnostic='" + getDate_diagnostic() + "'" +
-            ", handicap_mental='" + getHandicap_mental() + "'" +
-            ", qi='" + getQi() + "'" +
-            ", handicap_moteur='" + getHandicap_moteur() + "'" +
-            ", hadicap_moteur_grade='" + getHadicap_moteur_grade() + "'" +
-            ", deficit_neurosensoriel='" + getDeficit_neurosensoriel() + "'" +
-            ", deficit_neurosensoriel_val='" + getDeficit_neurosensoriel_val() + "'" +
-            ", deficience_psychique='" + getDeficience_psychique() + "'" +
-            ", deficience_psychique_val='" + getDeficience_psychique_val() + "'" +
-            ", autre_deficience_psychique='" + getAutre_deficience_psychique() + "'" +
-            ", regime='" + getRegime() + "'" +
-            ", regime_val='" + getRegime_val() + "'" +
-            ", medicament_specifique='" + getMedicament_specifique() + "'" +
-            ", medicament_specifique_val='" + getMedicament_specifique_val() + "'" +
-            ", autre_medicament_specifique='" + getAutre_medicament_specifique() + "'" +
-            ", vitamines='" + getVitamines() + "'" +
-            ", vitamines_val='" + getVitamines_val() + "'" +
-            ", greffehepatique='" + getGreffehepatique() + "'" +
-            ", reeducation_fonctionnelle='" + getReeducation_fonctionnelle() + "'" +
-            ", appareillage='" + getAppareillage() + "'" +
-            ", psuchologie='" + getPsuchologie() + "'" +
-            ", ergotherapie='" + getErgotherapie() + "'" +
-            ", depistage_post_natal_oriente='" + getDepistage_post_natal_oriente() + "'" +
-            ", echelle_depistage='" + getEchelle_depistage() + "'" +
-            ", nombre_individus_depistes=" + getNombre_individus_depistes() +
-            ", nouveaux_cas_depistes='" + getNouveaux_cas_depistes() + "'" +
-            ", nombre_nouveaux_cas_depistes=" + getNombre_nouveaux_cas_depistes() +
-            ", code_registre1_cas_depistes='" + getCode_registre1_cas_depistes() + "'" +
-            ", lien_parente1_cas_depistes='" + getLien_parente1_cas_depistes() + "'" +
-            ", autre_lien_parente1='" + getAutre_lien_parente1() + "'" +
-            ", code_registre2_cas_depistes='" + getCode_registre2_cas_depistes() + "'" +
-            ", lien_parente2_cas_depistes='" + getLien_parente2_cas_depistes() + "'" +
-            ", autre_lien_parente2='" + getAutre_lien_parente2() + "'" +
-            ", nombre_de_grossesse_ulterieures=" + getNombre_de_grossesse_ulterieures() +
-            ", nomre_DPN=" + getNomre_DPN() +
-            ", nombre_nouveaux_cas_diagnostiques=" + getNombre_nouveaux_cas_diagnostiques() +
-            ", nombre_ITG=" + getNombre_ITG() +
-            ", nomre_de_grossesses_poursuivies=" + getNomre_de_grossesses_poursuivies() +
-            ", nombre_de_foetus_sains=" + getNombre_de_foetus_sains() +
-            "}";
+        return (
+            "Fiche [id=" +
+            id +
+            ", datemaj=" +
+            datemaj +
+            ", type_observation=" +
+            type_observation +
+            ", identifiant_registre=" +
+            identifiant_registre +
+            ", date_enregistrement=" +
+            date_enregistrement +
+            ", sexe=" +
+            sexe +
+            ", date_naissance=" +
+            date_naissance +
+            ", statut=" +
+            statut +
+            ", date_deces=" +
+            date_deces +
+            ", circonstance_deces=" +
+            circonstance_deces +
+            ", autre_circonstance_deces=" +
+            autre_circonstance_deces +
+            ", lieu_deces=" +
+            lieu_deces +
+            ", consanguinite=" +
+            consanguinite +
+            ", origine_geo_pere_gouvernorat=" +
+            origine_geo_pere_gouvernorat +
+            ", origine_geo_mere_gouvernorat=" +
+            origine_geo_mere_gouvernorat +
+            ", origine_geo_pere_deleguation=" +
+            origine_geo_pere_deleguation +
+            ", origine_geo_mere_deleguation=" +
+            origine_geo_mere_deleguation +
+            ", couverture_sociale=" +
+            couverture_sociale +
+            ", autre_couverture_sociale=" +
+            autre_couverture_sociale +
+            ", activite=" +
+            activite +
+            ", btravail=" +
+            btravail +
+            ", travail=" +
+            travail +
+            ", scolarise=" +
+            scolarise +
+            ", type_scolarise=" +
+            type_scolarise +
+            ", niveau_scolarisation=" +
+            niveau_scolarisation +
+            ", cas_familiaux=" +
+            cas_familiaux +
+            ", nbcasconfirme=" +
+            nbcasconfirme +
+            ", nbcassuspectes=" +
+            nbcassuspectes +
+            ", nbcasdecedes=" +
+            nbcasdecedes +
+            ", deces_en_bas_age=" +
+            deces_en_bas_age +
+            ", nbcas_deces_age_bas=" +
+            nbcas_deces_age_bas +
+            ", circonstances_decouverte=" +
+            circonstances_decouverte +
+            ", age_aux_premiers_symptomes=" +
+            age_aux_premiers_symptomes +
+            ", an_age_premiers_symptomes=" +
+            an_age_premiers_symptomes +
+            ", mois_age_premiers_symptomes=" +
+            mois_age_premiers_symptomes +
+            ", jours_premiers_symptomes=" +
+            jours_premiers_symptomes +
+            ", age_premiere_consultation=" +
+            age_premiere_consultation +
+            ", an_age_premiere_consultation=" +
+            an_age_premiere_consultation +
+            ", mois_age_premiere_consultation=" +
+            mois_age_premiere_consultation +
+            ", jours_premiere_consultation=" +
+            jours_premiere_consultation +
+            ", date_derniere_evaluation=" +
+            date_derniere_evaluation +
+            ", date_diagnostic=" +
+            date_diagnostic +
+            ", handicap_mental=" +
+            handicap_mental +
+            ", qi=" +
+            qi +
+            ", handicap_moteur=" +
+            handicap_moteur +
+            ", hadicap_moteur_grade=" +
+            hadicap_moteur_grade +
+            ", deficit_neurosensoriel=" +
+            deficit_neurosensoriel +
+            ", deficit_neurosensoriel_val=" +
+            deficit_neurosensoriel_val +
+            ", deficience_psychique=" +
+            deficience_psychique +
+            ", deficience_psychique_val=" +
+            deficience_psychique_val +
+            ", autre_deficience_psychique=" +
+            autre_deficience_psychique +
+            ", regime=" +
+            regime +
+            ", regime_val=" +
+            regime_val +
+            ", medicament_specifique=" +
+            medicament_specifique +
+            ", medicament_specifique_val=" +
+            medicament_specifique_val +
+            ", autre_medicament_specifique=" +
+            autre_medicament_specifique +
+            ", vitamines=" +
+            vitamines +
+            ", vitamines_val=" +
+            vitamines_val +
+            ", greffehepatique=" +
+            greffehepatique +
+            ", reeducation_fonctionnelle=" +
+            reeducation_fonctionnelle +
+            ", appareillage=" +
+            appareillage +
+            ", psuchologie=" +
+            psuchologie +
+            ", ergotherapie=" +
+            ergotherapie +
+            ", depistage_post_natal_oriente=" +
+            depistage_post_natal_oriente +
+            ", echelle_depistage=" +
+            echelle_depistage +
+            ", nombre_individus_depistes=" +
+            nombre_individus_depistes +
+            ", nouveaux_cas_depistes=" +
+            nouveaux_cas_depistes +
+            ", nombre_nouveaux_cas_depistes=" +
+            nombre_nouveaux_cas_depistes +
+            ", code_registre1_cas_depistes=" +
+            code_registre1_cas_depistes +
+            ", lien_parente1_cas_depistes=" +
+            lien_parente1_cas_depistes +
+            ", autre_lien_parente1=" +
+            autre_lien_parente1 +
+            ", code_registre2_cas_depistes=" +
+            code_registre2_cas_depistes +
+            ", lien_parente2_cas_depistes=" +
+            lien_parente2_cas_depistes +
+            ", autre_lien_parente2=" +
+            autre_lien_parente2 +
+            ", nombre_de_grossesse_ulterieures=" +
+            nombre_de_grossesse_ulterieures +
+            ", nomre_DPN=" +
+            nomre_DPN +
+            ", nombre_nouveaux_cas_diagnostiques=" +
+            nombre_nouveaux_cas_diagnostiques +
+            ", nombre_ITG=" +
+            nombre_ITG +
+            ", nomre_de_grossesses_poursuivies=" +
+            nomre_de_grossesses_poursuivies +
+            ", nombre_de_foetus_sains=" +
+            nombre_de_foetus_sains +
+            ", pathologie=" +
+            pathologie +
+            ", casconfirmes=" +
+            casconfirmes +
+            ", structurefiches=" +
+            structurefiches +
+            "]"
+        );
     }
 }

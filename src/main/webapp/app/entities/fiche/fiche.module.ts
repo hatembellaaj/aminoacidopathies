@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { SharedModule } from 'app/shared/shared.module';
 import { FicheComponent } from './list/fiche.component';
 import { FicheDetailComponent } from './detail/fiche-detail.component';
@@ -8,9 +8,17 @@ import { FicheRoutingModule } from './route/fiche-routing.module';
 import { CasconfirmeLineComponent } from './casconfirme-line/casconfirme-line.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { StructureficheLineComponent } from './structurefiche-line/structurefiche-line.component';
 @NgModule({
   imports: [FormsModule, SharedModule, FicheRoutingModule],
-  declarations: [FicheComponent, FicheDetailComponent, FicheUpdateComponent, FicheDeleteDialogComponent, CasconfirmeLineComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  declarations: [
+    FicheComponent,
+    FicheDetailComponent,
+    FicheUpdateComponent,
+    FicheDeleteDialogComponent,
+    CasconfirmeLineComponent,
+    StructureficheLineComponent,
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })
 export class FicheModule {}

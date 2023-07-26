@@ -341,6 +341,17 @@
             </h2>
             <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
               <div class="accordion-body">
+                <div style="margin-bottom: 10px" *ngFor="let line of structureFicheLines; let i = index">
+                  <jhi-structurefiche-line
+                    [structureficheLine]="line"
+                    [index]="i"
+                    (structureficheLineDeleted)="handleStructureficheLineDeleted($event)"
+                  >
+                  </jhi-structurefiche-line>
+                </div>
+
+                <button type="button" (click)="addStructureFicheLine()">Ajouter Structure de Soins</button>
+
                 <div class="row mb-3">
                   <label class="form-label" for="field_btravail">Btravail</label>
                   <input

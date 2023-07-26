@@ -3,6 +3,7 @@ package tn.mdweb.aminoacidopathies.service.dto;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.validation.constraints.*;
+import tn.mdweb.aminoacidopathies.domain.Fiche;
 import tn.mdweb.aminoacidopathies.domain.enumeration.etypestructure;
 
 /**
@@ -24,6 +25,8 @@ public class StructureficheDTO implements Serializable {
     private ServicesanteDTO servicesante;
 
     private MedecinDTO medecin;
+
+    private Fiche fiche;
 
     public Long getId() {
         return id;
@@ -73,6 +76,14 @@ public class StructureficheDTO implements Serializable {
         this.medecin = medecin;
     }
 
+    public Fiche getFiche() {
+        return fiche;
+    }
+
+    public void setFiche(Fiche fiche) {
+        this.fiche = fiche;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -94,16 +105,24 @@ public class StructureficheDTO implements Serializable {
         return Objects.hash(this.id);
     }
 
-    // prettier-ignore
     @Override
     public String toString() {
-        return "StructureficheDTO{" +
-            "id=" + getId() +
-            ", typestructure='" + getTypestructure() + "'" +
-            ", ordre=" + getOrdre() +
-            ", etablissement=" + getEtablissement() +
-            ", servicesante=" + getServicesante() +
-            ", medecin=" + getMedecin() +
-            "}";
+        return (
+            "StructureficheDTO [id=" +
+            id +
+            ", typestructure=" +
+            typestructure +
+            ", ordre=" +
+            ordre +
+            ", etablissement=" +
+            etablissement +
+            ", servicesante=" +
+            servicesante +
+            ", medecin=" +
+            medecin +
+            ", fiche=" +
+            fiche +
+            "]"
+        );
     }
 }

@@ -45,6 +45,10 @@ public class Structurefiche implements Serializable {
     @JsonIgnoreProperties(value = { "etablissement", "servicesante" }, allowSetters = true)
     private Medecin medecin;
 
+    @ManyToOne(optional = false)
+    @NotNull
+    private Fiche fiche;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -127,6 +131,14 @@ public class Structurefiche implements Serializable {
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
+    public Fiche getFiche() {
+        return fiche;
+    }
+
+    public void setFiche(Fiche fiche) {
+        this.fiche = fiche;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -144,13 +156,24 @@ public class Structurefiche implements Serializable {
         return getClass().hashCode();
     }
 
-    // prettier-ignore
     @Override
     public String toString() {
-        return "Structurefiche{" +
-            "id=" + getId() +
-            ", typestructure='" + getTypestructure() + "'" +
-            ", ordre=" + getOrdre() +
-            "}";
+        return (
+            "Structurefiche [id=" +
+            id +
+            ", typestructure=" +
+            typestructure +
+            ", ordre=" +
+            ordre +
+            ", etablissement=" +
+            etablissement +
+            ", servicesante=" +
+            servicesante +
+            ", medecin=" +
+            medecin +
+            ", fiche=" +
+            fiche +
+            "]"
+        );
     }
 }
