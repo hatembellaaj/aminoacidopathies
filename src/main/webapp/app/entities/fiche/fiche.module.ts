@@ -9,6 +9,7 @@ import { CasconfirmeLineComponent } from './casconfirme-line/casconfirme-line.co
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StructureficheLineComponent } from './structurefiche-line/structurefiche-line.component';
+import { CassuspecteLineComponent } from './cassuspecte-line/cassuspecte-line.component';
 @NgModule({
   imports: [FormsModule, SharedModule, FicheRoutingModule],
   declarations: [
@@ -18,6 +19,7 @@ import { StructureficheLineComponent } from './structurefiche-line/structurefich
     FicheDeleteDialogComponent,
     CasconfirmeLineComponent,
     StructureficheLineComponent,
+    CassuspecteLineComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })

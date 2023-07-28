@@ -51,9 +51,11 @@ import { elienparente1 } from 'app/entities/enumerations/elienparente-1.model';
 import { elienparente2 } from 'app/entities/enumerations/elienparente-2.model';
 import { elien_parente } from 'app/entities/enumerations/elien-parente.model';
 import { etypestructure } from 'app/entities/enumerations/etypestructure.model';
+import { elienparente } from 'app/entities/enumerations/elienparente.model';
 
 import { ICasconfirme } from '../../casconfirme/casconfirme.model';
 import { IStructurefiche } from '../../structurefiche/structurefiche.model';
+import { ICassuspecte } from '../../cassuspecte/cassuspecte.model';
 
 @Component({
   selector: 'jhi-fiche-update',
@@ -108,6 +110,7 @@ export class FicheUpdateComponent implements OnInit {
   editForm: FicheFormGroup = this.ficheFormService.createFicheFormGroup();
 
   casConfirmeLines: ICasconfirme[] = [];
+  casSuspectesLines: ICassuspecte[] = [];
   structureFicheLines: IStructurefiche[] = [];
 
   constructor(
@@ -174,6 +177,52 @@ export class FicheUpdateComponent implements OnInit {
 
   handleCasConfirmeLineDeleted(index: any): void {
     this.casConfirmeLines.splice(index, 1);
+  }
+
+  addCasSuspecteLine(): void {
+    console.log('Hello this is addCasSuspecteLine');
+    // Create a new instance of the estimate line
+    const newLine: ICassuspecte = {
+      id: 0,
+      lienparente: elienparente.NP,
+      lienparenteautre: '',
+      signes_neurologiques: false,
+      troubles_de_la_conscience: false,
+      retard_psychomoteur: false,
+      retard_mental: false,
+      signes_du_spectre_autistique: false,
+      epilepsie: false,
+      crise_pseudoporphyrique: false,
+      autres_signes_neurologiques: '',
+      signes_hepatiques: false,
+      ictere: false,
+      ballonnement: false,
+      syndrome_hemorragique: false,
+      autres_signes_hepatiques: '',
+      signes_osseux: false,
+      signes_de_rachitisme: false,
+      autre_signes_osseux: '',
+      manifestations_thrombotiques: false,
+      cerebrale: false,
+      autre_manifestations_thrombotiques: '',
+      manifestations_ophtalmologiques: false,
+      luxation: false,
+      ectopie_cristalinienne: false,
+      cataracte: false,
+      glaucome: false,
+      myopie: false,
+      manifestations_ophtalmologiques_autre: '',
+      autre_criteres: false,
+      str_autres_criteres: '',
+      critere_non_precise: false,
+    };
+
+    // Add the new estimate line to the array
+    this.casSuspectesLines.push(newLine);
+  }
+
+  handleCasSuspecteLineDeleted(index: any): void {
+    this.casSuspectesLines.splice(index, 1);
   }
 
   addStructureFicheLine(): void {

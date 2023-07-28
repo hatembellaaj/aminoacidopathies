@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 import javax.validation.constraints.*;
 import tn.mdweb.aminoacidopathies.domain.Casconfirme;
+import tn.mdweb.aminoacidopathies.domain.Cassuspecte;
 import tn.mdweb.aminoacidopathies.domain.Structurefiche;
 import tn.mdweb.aminoacidopathies.domain.enumeration.eMoteur;
 import tn.mdweb.aminoacidopathies.domain.enumeration.eQI;
@@ -220,6 +221,8 @@ public class FicheDTO implements Serializable {
     private PathologieDTO pathologie;
 
     private Set<Casconfirme> casconfirmes = new HashSet<>();
+
+    private Set<Cassuspecte> cassuspectes = new HashSet<>();
 
     private Set<Structurefiche> structurefiches = new HashSet<>();
 
@@ -887,6 +890,14 @@ public class FicheDTO implements Serializable {
         this.structurefiches = structurefiches;
     }
 
+    public Set<Cassuspecte> getCassuspectes() {
+        return cassuspectes;
+    }
+
+    public void setCassuspectes(Set<Cassuspecte> cassuspectes) {
+        this.cassuspectes = cassuspectes;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -1075,6 +1086,8 @@ public class FicheDTO implements Serializable {
             pathologie +
             ", casconfirmes=" +
             casconfirmes +
+            ", cassuspectes=" +
+            cassuspectes +
             ", structurefiches=" +
             structurefiches +
             "]"

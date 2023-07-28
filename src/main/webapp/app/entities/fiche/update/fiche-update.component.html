@@ -78,19 +78,19 @@
             </div>
           </div>
           <div class="accordion-item">
-            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
               <button
                 class="accordion-button"
                 type="button"
                 data-bs-toggle="collapse"
-                data-bs-target="#panelsStayOpen-collapseOne"
+                data-bs-target="#panelsStayOpen-collapseTwo"
                 aria-expanded="true"
-                aria-controls="panelsStayOpen-collapseOne"
+                aria-controls="panelsStayOpen-collapseTwo"
               >
                 IDENTIFICATION DU PATIENT
               </button>
             </h2>
-            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
               <div class="accordion-body">
                 <div class="row mb-3">
                   <label class="form-label" for="field_type_observation">Type Observation</label>
@@ -322,35 +322,6 @@
                     <option *ngFor="let eactivite of eactiviteValues" [value]="eactivite">eactivite</option>
                   </select>
                 </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-              <button
-                class="accordion-button"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#panelsStayOpen-collapseOne"
-                aria-expanded="true"
-                aria-controls="panelsStayOpen-collapseOne"
-              >
-                PARCOURS DE SOIN
-              </button>
-            </h2>
-            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-              <div class="accordion-body">
-                <div style="margin-bottom: 10px" *ngFor="let line of structureFicheLines; let i = index">
-                  <jhi-structurefiche-line
-                    [structureficheLine]="line"
-                    [index]="i"
-                    (structureficheLineDeleted)="handleStructureficheLineDeleted($event)"
-                  >
-                  </jhi-structurefiche-line>
-                </div>
-
-                <button type="button" (click)="addStructureFicheLine()">Ajouter Structure de Soins</button>
 
                 <div class="row mb-3">
                   <label class="form-label" for="field_btravail">Btravail</label>
@@ -410,7 +381,54 @@
                     </option>
                   </select>
                 </div>
+              </div>
+            </div>
+          </div>
 
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+              <button
+                class="accordion-button"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#panelsStayOpen-collapseThree"
+                aria-expanded="true"
+                aria-controls="panelsStayOpen-collapseThree"
+              >
+                PARCOURS DE SOIN
+              </button>
+            </h2>
+            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+              <div class="accordion-body">
+                <div style="margin-bottom: 10px" *ngFor="let line of structureFicheLines; let i = index">
+                  <jhi-structurefiche-line
+                    [structureficheLine]="line"
+                    [index]="i"
+                    (structureficheLineDeleted)="handleStructureficheLineDeleted($event)"
+                  >
+                  </jhi-structurefiche-line>
+                </div>
+
+                <button type="button" (click)="addStructureFicheLine()">Ajouter Structure de Soins</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingFour">
+              <button
+                class="accordion-button"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#panelsStayOpen-collapseFour"
+                aria-expanded="true"
+                aria-controls="panelsStayOpen-collapseFour"
+              >
+                HISTOIRE FAMILIALE
+              </button>
+            </h2>
+            <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+              <div class="accordion-body">
                 <div class="row mb-3">
                   <label class="form-label" for="field_cas_familiaux">Cas Familiaux</label>
                   <select
@@ -437,6 +455,47 @@
                   />
                 </div>
 
+                <div style="margin-bottom: 10px" *ngFor="let line of casConfirmeLines; let i = index">
+                  <jhi-casconfirme-line
+                    [casConfirmeLine]="line"
+                    [index]="i"
+                    (casconfirmeLineDeleted)="handleCasConfirmeLineDeleted($event)"
+                  >
+                  </jhi-casconfirme-line>
+                </div>
+
+                <button type="button" (click)="addCasConfirmeLine()">Ajouter Cas confirmé</button>
+
+                <br /><br />
+                <div style="margin-bottom: 10px" *ngFor="let line of casSuspectesLines; let i = index">
+                  <jhi-cassuspecte-line
+                    [casSuspectesLines]="line"
+                    [index]="i"
+                    (cassuspecteLineDeleted)="handleCasSuspecteLineDeleted($event)"
+                  >
+                  </jhi-cassuspecte-line>
+                </div>
+
+                <button type="button" (click)="addCasSuspecteLine()">Ajouter Cas Suspecte</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingFive">
+              <button
+                class="accordion-button"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#panelsStayOpen-collapseFive"
+                aria-expanded="true"
+                aria-controls="panelsStayOpen-collapseFive"
+              >
+                DIAGNOSTIC
+              </button>
+            </h2>
+            <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+              <div class="accordion-body">
                 <div class="row mb-3">
                   <label class="form-label" for="field_nbcassuspectes">Nbcassuspectes</label>
                   <input
@@ -642,7 +701,25 @@
                     </button>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
 
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingSix">
+              <button
+                class="accordion-button"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#panelsStayOpen-collapseSix"
+                aria-expanded="true"
+                aria-controls="panelsStayOpen-collapseSix"
+              >
+                BILAN DES DEFICIENCES /HANDICAP
+              </button>
+            </h2>
+            <div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+              <div class="accordion-body">
                 <div class="row mb-3">
                   <label class="form-label" for="field_handicap_mental">Handicap Mental</label>
                   <select
@@ -766,7 +843,25 @@
                     formControlName="autre_deficience_psychique"
                   />
                 </div>
+              </div>
+            </div>
+          </div>
 
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingSeven">
+              <button
+                class="accordion-button"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#panelsStayOpen-collapseSeven"
+                aria-expanded="true"
+                aria-controls="panelsStayOpen-collapseSeven"
+              >
+                PRISE EN CHARGE
+              </button>
+            </h2>
+            <div id="panelsStayOpen-collapseSeven" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+              <div class="accordion-body">
                 <div class="row mb-3">
                   <label class="form-label" for="field_regime">Regime</label>
                   <select class="form-control" name="regime" formControlName="regime" id="field_regime" data-cy="regime">
@@ -923,7 +1018,25 @@
                     <option *ngFor="let eergotherapie of eergotherapieValues" [value]="eergotherapie">eergotherapie</option>
                   </select>
                 </div>
+              </div>
+            </div>
+          </div>
 
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingEight">
+              <button
+                class="accordion-button"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#panelsStayOpen-collapseEight"
+                aria-expanded="true"
+                aria-controls="panelsStayOpen-collapseEight"
+              >
+                ENQUETE FAMILIALE
+              </button>
+            </h2>
+            <div id="panelsStayOpen-collapseEight" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+              <div class="accordion-body">
                 <div class="row mb-3">
                   <label class="form-label" for="field_depistage_post_natal_oriente">Depistage Post Natal Oriente</label>
                   <select
@@ -1145,14 +1258,6 @@
                   />
                 </div>
               </div>
-
-              <div style="margin-bottom: 10px" *ngFor="let line of casConfirmeLines; let i = index">
-                <jhi-casconfirme-line [casConfirmeLine]="line" [index]="i" (estimateLineDeleted)="handleCasConfirmeLineDeleted($event)">
-                </jhi-casconfirme-line>
-                i
-              </div>
-
-              <button type="button" (click)="addCasConfirmeLine()">Add Line</button>
 
               <div>
                 <button

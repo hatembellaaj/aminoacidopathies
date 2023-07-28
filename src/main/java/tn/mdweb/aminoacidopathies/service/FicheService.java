@@ -10,14 +10,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tn.mdweb.aminoacidopathies.domain.Casconfirme;
+import tn.mdweb.aminoacidopathies.domain.Cassuspecte;
 import tn.mdweb.aminoacidopathies.domain.Fiche;
 import tn.mdweb.aminoacidopathies.domain.Structurefiche;
 import tn.mdweb.aminoacidopathies.repository.CasconfirmeRepository;
+import tn.mdweb.aminoacidopathies.repository.CassuspecteRepository;
 import tn.mdweb.aminoacidopathies.repository.FicheRepository;
 import tn.mdweb.aminoacidopathies.repository.StructureficheRepository;
 import tn.mdweb.aminoacidopathies.service.dto.CasconfirmeDTO;
 import tn.mdweb.aminoacidopathies.service.dto.FicheDTO;
 import tn.mdweb.aminoacidopathies.service.mapper.CasconfirmeMapper;
+import tn.mdweb.aminoacidopathies.service.mapper.CassuspecteMapper;
 import tn.mdweb.aminoacidopathies.service.mapper.FicheMapper;
 import tn.mdweb.aminoacidopathies.service.mapper.StructureficheMapper;
 
@@ -34,11 +37,15 @@ public class FicheService {
 
     private final CasconfirmeRepository casconfirmeRepository;
 
+    private final CassuspecteRepository cassuspecteRepository;
+
     private final StructureficheRepository structureficheRepository;
 
     private final FicheMapper ficheMapper;
 
     private final CasconfirmeMapper casconfirmeMapper;
+
+    private final CassuspecteMapper cassuspecteMapper;
 
     private final StructureficheMapper structureficheMapper;
 
@@ -48,7 +55,9 @@ public class FicheService {
         CasconfirmeRepository casconfirmeRepository,
         CasconfirmeMapper casconfirmeMapper,
         StructureficheRepository structureficheRepository,
-        StructureficheMapper structureficheMapper
+        StructureficheMapper structureficheMapper,
+        CassuspecteRepository cassuspecteRepository,
+        CassuspecteMapper cassuspecteMapper
     ) {
         this.ficheRepository = ficheRepository;
         this.ficheMapper = ficheMapper;
@@ -56,6 +65,8 @@ public class FicheService {
         this.casconfirmeMapper = casconfirmeMapper;
         this.structureficheRepository = structureficheRepository;
         this.structureficheMapper = structureficheMapper;
+        this.cassuspecteRepository = cassuspecteRepository;
+        this.cassuspecteMapper = cassuspecteMapper;
     }
 
     /**
@@ -73,6 +84,12 @@ public class FicheService {
         lcc.forEach(e -> {
             e.setFiche(fiche);
             this.casconfirmeRepository.save(e);
+        });
+
+        Set<Cassuspecte> lcs = ficheDTO.getCassuspectes();
+        lcs.forEach(cs -> {
+            cs.setFiche(fiche);
+            this.cassuspecteRepository.save(cs);
         });
 
         Set<Structurefiche> ssf = ficheDTO.getStructurefiches();
