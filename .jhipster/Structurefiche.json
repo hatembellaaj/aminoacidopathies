@@ -37,6 +37,13 @@
       "otherEntityName": "medecin",
       "relationshipName": "medecin",
       "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "fiche",
+      "relationshipName": "fiche",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": ["required"]
     }
   ],
   "service": "serviceClass"

@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import tn.mdweb.aminoacidopathies.IntegrationTest;
 import tn.mdweb.aminoacidopathies.domain.Etablissement;
+import tn.mdweb.aminoacidopathies.domain.Fiche;
 import tn.mdweb.aminoacidopathies.domain.Structurefiche;
 import tn.mdweb.aminoacidopathies.domain.enumeration.etypestructure;
 import tn.mdweb.aminoacidopathies.repository.StructureficheRepository;
@@ -77,6 +78,16 @@ class StructureficheResourceIT {
             etablissement = TestUtil.findAll(em, Etablissement.class).get(0);
         }
         structurefiche.setEtablissement(etablissement);
+        // Add required entity
+        Fiche fiche;
+        if (TestUtil.findAll(em, Fiche.class).isEmpty()) {
+            fiche = FicheResourceIT.createEntity(em);
+            em.persist(fiche);
+            em.flush();
+        } else {
+            fiche = TestUtil.findAll(em, Fiche.class).get(0);
+        }
+        structurefiche.setFiche(fiche);
         return structurefiche;
     }
 
@@ -98,6 +109,16 @@ class StructureficheResourceIT {
             etablissement = TestUtil.findAll(em, Etablissement.class).get(0);
         }
         structurefiche.setEtablissement(etablissement);
+        // Add required entity
+        Fiche fiche;
+        if (TestUtil.findAll(em, Fiche.class).isEmpty()) {
+            fiche = FicheResourceIT.createUpdatedEntity(em);
+            em.persist(fiche);
+            em.flush();
+        } else {
+            fiche = TestUtil.findAll(em, Fiche.class).get(0);
+        }
+        structurefiche.setFiche(fiche);
         return structurefiche;
     }
 

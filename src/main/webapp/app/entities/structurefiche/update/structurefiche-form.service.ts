@@ -23,6 +23,7 @@ type StructureficheFormGroupContent = {
   etablissement: FormControl<IStructurefiche['etablissement']>;
   servicesante: FormControl<IStructurefiche['servicesante']>;
   medecin: FormControl<IStructurefiche['medecin']>;
+  fiche: FormControl<IStructurefiche['fiche']>;
 };
 
 export type StructureficheFormGroup = FormGroup<StructureficheFormGroupContent>;
@@ -53,6 +54,9 @@ export class StructureficheFormService {
       }),
       servicesante: new FormControl(structureficheRawValue.servicesante),
       medecin: new FormControl(structureficheRawValue.medecin),
+      fiche: new FormControl(structureficheRawValue.fiche, {
+        validators: [Validators.required],
+      }),
     });
   }
 

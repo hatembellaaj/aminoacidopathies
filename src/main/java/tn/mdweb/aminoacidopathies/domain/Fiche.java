@@ -353,6 +353,26 @@ public class Fiche implements Serializable {
     @JsonIgnoreProperties(value = { "fiche" }, allowSetters = true)
     private Set<Casconfirme> casconfirmes = new HashSet<>();
 
+    @OneToMany(mappedBy = "fiche")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "fiche" }, allowSetters = true)
+    private Set<Cassuspecte> cassuspectes = new HashSet<>();
+
+    @OneToMany(mappedBy = "fiche")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "fiche" }, allowSetters = true)
+    private Set<Casdecesbasage> casdecesbasages = new HashSet<>();
+
+    @OneToMany(mappedBy = "fiche")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "etablissement", "servicesante", "medecin", "fiche" }, allowSetters = true)
+    private Set<Structurefiche> structurefiches = new HashSet<>();
+
+    @OneToMany(mappedBy = "fiche")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "fiche" }, allowSetters = true)
+    private Set<Metabolique> metaboliques = new HashSet<>();
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -1436,6 +1456,130 @@ public class Fiche implements Serializable {
     public Fiche removeCasconfirme(Casconfirme casconfirme) {
         this.casconfirmes.remove(casconfirme);
         casconfirme.setFiche(null);
+        return this;
+    }
+
+    public Set<Cassuspecte> getCassuspectes() {
+        return this.cassuspectes;
+    }
+
+    public void setCassuspectes(Set<Cassuspecte> cassuspectes) {
+        if (this.cassuspectes != null) {
+            this.cassuspectes.forEach(i -> i.setFiche(null));
+        }
+        if (cassuspectes != null) {
+            cassuspectes.forEach(i -> i.setFiche(this));
+        }
+        this.cassuspectes = cassuspectes;
+    }
+
+    public Fiche cassuspectes(Set<Cassuspecte> cassuspectes) {
+        this.setCassuspectes(cassuspectes);
+        return this;
+    }
+
+    public Fiche addCassuspecte(Cassuspecte cassuspecte) {
+        this.cassuspectes.add(cassuspecte);
+        cassuspecte.setFiche(this);
+        return this;
+    }
+
+    public Fiche removeCassuspecte(Cassuspecte cassuspecte) {
+        this.cassuspectes.remove(cassuspecte);
+        cassuspecte.setFiche(null);
+        return this;
+    }
+
+    public Set<Casdecesbasage> getCasdecesbasages() {
+        return this.casdecesbasages;
+    }
+
+    public void setCasdecesbasages(Set<Casdecesbasage> casdecesbasages) {
+        if (this.casdecesbasages != null) {
+            this.casdecesbasages.forEach(i -> i.setFiche(null));
+        }
+        if (casdecesbasages != null) {
+            casdecesbasages.forEach(i -> i.setFiche(this));
+        }
+        this.casdecesbasages = casdecesbasages;
+    }
+
+    public Fiche casdecesbasages(Set<Casdecesbasage> casdecesbasages) {
+        this.setCasdecesbasages(casdecesbasages);
+        return this;
+    }
+
+    public Fiche addCasdecesbasage(Casdecesbasage casdecesbasage) {
+        this.casdecesbasages.add(casdecesbasage);
+        casdecesbasage.setFiche(this);
+        return this;
+    }
+
+    public Fiche removeCasdecesbasage(Casdecesbasage casdecesbasage) {
+        this.casdecesbasages.remove(casdecesbasage);
+        casdecesbasage.setFiche(null);
+        return this;
+    }
+
+    public Set<Structurefiche> getStructurefiches() {
+        return this.structurefiches;
+    }
+
+    public void setStructurefiches(Set<Structurefiche> structurefiches) {
+        if (this.structurefiches != null) {
+            this.structurefiches.forEach(i -> i.setFiche(null));
+        }
+        if (structurefiches != null) {
+            structurefiches.forEach(i -> i.setFiche(this));
+        }
+        this.structurefiches = structurefiches;
+    }
+
+    public Fiche structurefiches(Set<Structurefiche> structurefiches) {
+        this.setStructurefiches(structurefiches);
+        return this;
+    }
+
+    public Fiche addStructurefiche(Structurefiche structurefiche) {
+        this.structurefiches.add(structurefiche);
+        structurefiche.setFiche(this);
+        return this;
+    }
+
+    public Fiche removeStructurefiche(Structurefiche structurefiche) {
+        this.structurefiches.remove(structurefiche);
+        structurefiche.setFiche(null);
+        return this;
+    }
+
+    public Set<Metabolique> getMetaboliques() {
+        return this.metaboliques;
+    }
+
+    public void setMetaboliques(Set<Metabolique> metaboliques) {
+        if (this.metaboliques != null) {
+            this.metaboliques.forEach(i -> i.setFiche(null));
+        }
+        if (metaboliques != null) {
+            metaboliques.forEach(i -> i.setFiche(this));
+        }
+        this.metaboliques = metaboliques;
+    }
+
+    public Fiche metaboliques(Set<Metabolique> metaboliques) {
+        this.setMetaboliques(metaboliques);
+        return this;
+    }
+
+    public Fiche addMetabolique(Metabolique metabolique) {
+        this.metaboliques.add(metabolique);
+        metabolique.setFiche(this);
+        return this;
+    }
+
+    public Fiche removeMetabolique(Metabolique metabolique) {
+        this.metaboliques.remove(metabolique);
+        metabolique.setFiche(null);
         return this;
     }
 

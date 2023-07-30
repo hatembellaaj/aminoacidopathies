@@ -15,6 +15,8 @@ import { IServicesante } from 'app/entities/servicesante/servicesante.model';
 import { ServicesanteService } from 'app/entities/servicesante/service/servicesante.service';
 import { IMedecin } from 'app/entities/medecin/medecin.model';
 import { MedecinService } from 'app/entities/medecin/service/medecin.service';
+import { IFiche } from 'app/entities/fiche/fiche.model';
+import { FicheService } from 'app/entities/fiche/service/fiche.service';
 
 import { StructureficheUpdateComponent } from './structurefiche-update.component';
 
@@ -27,6 +29,7 @@ describe('Structurefiche Management Update Component', () => {
   let etablissementService: EtablissementService;
   let servicesanteService: ServicesanteService;
   let medecinService: MedecinService;
+  let ficheService: FicheService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -52,6 +55,7 @@ describe('Structurefiche Management Update Component', () => {
     etablissementService = TestBed.inject(EtablissementService);
     servicesanteService = TestBed.inject(ServicesanteService);
     medecinService = TestBed.inject(MedecinService);
+    ficheService = TestBed.inject(FicheService);
 
     comp = fixture.componentInstance;
   });
@@ -123,6 +127,28 @@ describe('Structurefiche Management Update Component', () => {
       expect(comp.medecinsSharedCollection).toEqual(expectedCollection);
     });
 
+    it('Should call Fiche query and add missing value', () => {
+      const structurefiche: IStructurefiche = { id: 456 };
+      const fiche: IFiche = { id: 40226 };
+      structurefiche.fiche = fiche;
+
+      const ficheCollection: IFiche[] = [{ id: 31684 }];
+      jest.spyOn(ficheService, 'query').mockReturnValue(of(new HttpResponse({ body: ficheCollection })));
+      const additionalFiches = [fiche];
+      const expectedCollection: IFiche[] = [...additionalFiches, ...ficheCollection];
+      jest.spyOn(ficheService, 'addFicheToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+      activatedRoute.data = of({ structurefiche });
+      comp.ngOnInit();
+
+      expect(ficheService.query).toHaveBeenCalled();
+      expect(ficheService.addFicheToCollectionIfMissing).toHaveBeenCalledWith(
+        ficheCollection,
+        ...additionalFiches.map(expect.objectContaining)
+      );
+      expect(comp.fichesSharedCollection).toEqual(expectedCollection);
+    });
+
     it('Should update editForm', () => {
       const structurefiche: IStructurefiche = { id: 456 };
       const etablissement: IEtablissement = { id: 40565 };
@@ -131,6 +157,8 @@ describe('Structurefiche Management Update Component', () => {
       structurefiche.servicesante = servicesante;
       const medecin: IMedecin = { id: 38100 };
       structurefiche.medecin = medecin;
+      const fiche: IFiche = { id: 39535 };
+      structurefiche.fiche = fiche;
 
       activatedRoute.data = of({ structurefiche });
       comp.ngOnInit();
@@ -138,6 +166,7 @@ describe('Structurefiche Management Update Component', () => {
       expect(comp.etablissementsSharedCollection).toContain(etablissement);
       expect(comp.servicesantesSharedCollection).toContain(servicesante);
       expect(comp.medecinsSharedCollection).toContain(medecin);
+      expect(comp.fichesSharedCollection).toContain(fiche);
       expect(comp.structurefiche).toEqual(structurefiche);
     });
   });
@@ -238,6 +267,16 @@ describe('Structurefiche Management Update Component', () => {
         jest.spyOn(medecinService, 'compareMedecin');
         comp.compareMedecin(entity, entity2);
         expect(medecinService.compareMedecin).toHaveBeenCalledWith(entity, entity2);
+      });
+    });
+
+    describe('compareFiche', () => {
+      it('Should forward to ficheService', () => {
+        const entity = { id: 123 };
+        const entity2 = { id: 456 };
+        jest.spyOn(ficheService, 'compareFiche');
+        comp.compareFiche(entity, entity2);
+        expect(ficheService.compareFiche).toHaveBeenCalledWith(entity, entity2);
       });
     });
   });

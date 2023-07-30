@@ -40,6 +40,12 @@
             <a [routerLink]="['/medecin', structurefiche.medecin.id, 'view']">{{ structurefiche.medecin.id }}</a>
           </div>
         </dd>
+        <dt><span>Fiche</span></dt>
+        <dd>
+          <div *ngIf="structurefiche.fiche">
+            <a [routerLink]="['/fiche', structurefiche.fiche.id, 'view']">{{ structurefiche.fiche.id }}</a>
+          </div>
+        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

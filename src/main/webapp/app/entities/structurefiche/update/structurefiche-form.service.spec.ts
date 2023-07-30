@@ -25,6 +25,7 @@ describe('Structurefiche Form Service', () => {
             etablissement: expect.any(Object),
             servicesante: expect.any(Object),
             medecin: expect.any(Object),
+            fiche: expect.any(Object),
           })
         );
       });
@@ -40,6 +41,7 @@ describe('Structurefiche Form Service', () => {
             etablissement: expect.any(Object),
             servicesante: expect.any(Object),
             medecin: expect.any(Object),
+            fiche: expect.any(Object),
           })
         );
       });

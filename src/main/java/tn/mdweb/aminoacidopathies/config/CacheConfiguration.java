@@ -60,6 +60,10 @@ public class CacheConfiguration {
             createCache(cm, tn.mdweb.aminoacidopathies.domain.Casdecesbasage.class.getName());
             createCache(cm, tn.mdweb.aminoacidopathies.domain.Metabolique.class.getName());
             createCache(cm, tn.mdweb.aminoacidopathies.domain.Fiche.class.getName() + ".casconfirmes");
+            createCache(cm, tn.mdweb.aminoacidopathies.domain.Fiche.class.getName() + ".cassuspectes");
+            createCache(cm, tn.mdweb.aminoacidopathies.domain.Fiche.class.getName() + ".casdecesbasages");
+            createCache(cm, tn.mdweb.aminoacidopathies.domain.Fiche.class.getName() + ".structurefiches");
+            createCache(cm, tn.mdweb.aminoacidopathies.domain.Fiche.class.getName() + ".metaboliques");
             // jhipster-needle-ehcache-add-entry
         };
     }

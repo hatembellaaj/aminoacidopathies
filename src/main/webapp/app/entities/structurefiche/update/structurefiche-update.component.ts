@@ -13,6 +13,8 @@ import { IServicesante } from 'app/entities/servicesante/servicesante.model';
 import { ServicesanteService } from 'app/entities/servicesante/service/servicesante.service';
 import { IMedecin } from 'app/entities/medecin/medecin.model';
 import { MedecinService } from 'app/entities/medecin/service/medecin.service';
+import { IFiche } from 'app/entities/fiche/fiche.model';
+import { FicheService } from 'app/entities/fiche/service/fiche.service';
 import { etypestructure } from 'app/entities/enumerations/etypestructure.model';
 
 @Component({
@@ -27,6 +29,7 @@ export class StructureficheUpdateComponent implements OnInit {
   etablissementsSharedCollection: IEtablissement[] = [];
   servicesantesSharedCollection: IServicesante[] = [];
   medecinsSharedCollection: IMedecin[] = [];
+  fichesSharedCollection: IFiche[] = [];
 
   editForm: StructureficheFormGroup = this.structureficheFormService.createStructureficheFormGroup();
 
@@ -36,6 +39,7 @@ export class StructureficheUpdateComponent implements OnInit {
     protected etablissementService: EtablissementService,
     protected servicesanteService: ServicesanteService,
     protected medecinService: MedecinService,
+    protected ficheService: FicheService,
     protected activatedRoute: ActivatedRoute
   ) {}
 
@@ -46,6 +50,8 @@ export class StructureficheUpdateComponent implements OnInit {
     this.servicesanteService.compareServicesante(o1, o2);
 
   compareMedecin = (o1: IMedecin | null, o2: IMedecin | null): boolean => this.medecinService.compareMedecin(o1, o2);
+
+  compareFiche = (o1: IFiche | null, o2: IFiche | null): boolean => this.ficheService.compareFiche(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ structurefiche }) => {
@@ -107,6 +113,10 @@ export class StructureficheUpdateComponent implements OnInit {
       this.medecinsSharedCollection,
       structurefiche.medecin
     );
+    this.fichesSharedCollection = this.ficheService.addFicheToCollectionIfMissing<IFiche>(
+      this.fichesSharedCollection,
+      structurefiche.fiche
+    );
   }
 
   protected loadRelationshipsOptions(): void {
@@ -140,5 +150,11 @@ export class StructureficheUpdateComponent implements OnInit {
         map((medecins: IMedecin[]) => this.medecinService.addMedecinToCollectionIfMissing<IMedecin>(medecins, this.structurefiche?.medecin))
       )
       .subscribe((medecins: IMedecin[]) => (this.medecinsSharedCollection = medecins));
+
+    this.ficheService
+      .query()
+      .pipe(map((res: HttpResponse<IFiche[]>) => res.body ?? []))
+      .pipe(map((fiches: IFiche[]) => this.ficheService.addFicheToCollectionIfMissing<IFiche>(fiches, this.structurefiche?.fiche)))
+      .subscribe((fiches: IFiche[]) => (this.fichesSharedCollection = fiches));
   }
 }

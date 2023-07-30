@@ -120,7 +120,10 @@ public class Cassuspecte implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "pathologie", "casconfirmes" }, allowSetters = true)
+    @JsonIgnoreProperties(
+        value = { "pathologie", "casconfirmes", "cassuspectes", "casdecesbasages", "structurefiches", "metaboliques" },
+        allowSetters = true
+    )
     private Fiche fiche;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

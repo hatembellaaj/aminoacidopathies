@@ -25,6 +25,8 @@ public class StructureficheDTO implements Serializable {
 
     private MedecinDTO medecin;
 
+    private FicheDTO fiche;
+
     public Long getId() {
         return id;
     }
@@ -73,6 +75,14 @@ public class StructureficheDTO implements Serializable {
         this.medecin = medecin;
     }
 
+    public FicheDTO getFiche() {
+        return fiche;
+    }
+
+    public void setFiche(FicheDTO fiche) {
+        this.fiche = fiche;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -104,6 +114,7 @@ public class StructureficheDTO implements Serializable {
             ", etablissement=" + getEtablissement() +
             ", servicesante=" + getServicesante() +
             ", medecin=" + getMedecin() +
+            ", fiche=" + getFiche() +
             "}";
     }
 }

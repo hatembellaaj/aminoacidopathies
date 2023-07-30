@@ -378,6 +378,30 @@
       "otherEntityRelationshipName": "fiche",
       "relationshipName": "casconfirme",
       "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "cassuspecte",
+      "otherEntityRelationshipName": "fiche",
+      "relationshipName": "cassuspecte",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "casdecesbasage",
+      "otherEntityRelationshipName": "fiche",
+      "relationshipName": "casdecesbasage",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "structurefiche",
+      "otherEntityRelationshipName": "fiche",
+      "relationshipName": "structurefiche",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "metabolique",
+      "otherEntityRelationshipName": "fiche",
+      "relationshipName": "metabolique",
+      "relationshipType": "one-to-many"
     }
   ],
   "service": "serviceClass"

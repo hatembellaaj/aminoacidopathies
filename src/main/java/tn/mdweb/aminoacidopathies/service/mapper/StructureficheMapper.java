@@ -2,10 +2,12 @@ package tn.mdweb.aminoacidopathies.service.mapper;
 
 import org.mapstruct.*;
 import tn.mdweb.aminoacidopathies.domain.Etablissement;
+import tn.mdweb.aminoacidopathies.domain.Fiche;
 import tn.mdweb.aminoacidopathies.domain.Medecin;
 import tn.mdweb.aminoacidopathies.domain.Servicesante;
 import tn.mdweb.aminoacidopathies.domain.Structurefiche;
 import tn.mdweb.aminoacidopathies.service.dto.EtablissementDTO;
+import tn.mdweb.aminoacidopathies.service.dto.FicheDTO;
 import tn.mdweb.aminoacidopathies.service.dto.MedecinDTO;
 import tn.mdweb.aminoacidopathies.service.dto.ServicesanteDTO;
 import tn.mdweb.aminoacidopathies.service.dto.StructureficheDTO;
@@ -18,6 +20,7 @@ public interface StructureficheMapper extends EntityMapper<StructureficheDTO, St
     @Mapping(target = "etablissement", source = "etablissement", qualifiedByName = "etablissementId")
     @Mapping(target = "servicesante", source = "servicesante", qualifiedByName = "servicesanteId")
     @Mapping(target = "medecin", source = "medecin", qualifiedByName = "medecinId")
+    @Mapping(target = "fiche", source = "fiche", qualifiedByName = "ficheId")
     StructureficheDTO toDto(Structurefiche s);
 
     @Named("etablissementId")
@@ -34,4 +37,9 @@ public interface StructureficheMapper extends EntityMapper<StructureficheDTO, St
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
     MedecinDTO toDtoMedecinId(Medecin medecin);
+
+    @Named("ficheId")
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "id", source = "id")
+    FicheDTO toDtoFicheId(Fiche fiche);
 }

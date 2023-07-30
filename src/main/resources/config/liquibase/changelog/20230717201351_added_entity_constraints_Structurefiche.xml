@@ -25,5 +25,11 @@
                                  constraintName="fk_structurefiche__medecin_id"
                                  referencedColumnNames="id"
                                  referencedTableName="medecin"/>
+
+        <addForeignKeyConstraint baseColumnNames="fiche_id"
+                                 baseTableName="structurefiche"
+                                 constraintName="fk_structurefiche__fiche_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="fiche"/>
     </changeSet>
 </databaseChangeLog>
