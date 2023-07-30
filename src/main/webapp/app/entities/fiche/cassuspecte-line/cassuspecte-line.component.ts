@@ -15,7 +15,7 @@ import { elienparente } from '../../enumerations/elienparente.model';
   styleUrls: ['./cassuspecte-line.component.scss'],
 })
 export class CassuspecteLineComponent implements OnInit {
-  @Input() casSuspecteLine!: ICasconfirme;
+  @Input() casSuspecteLine!: ICassuspecte;
   @Input() index!: number;
   //@Output() estimateLineChanged = new EventEmitter<{lineIndex : number, estimateLine: EstimateLine}>();
   @Output() casSuspecteDeleted = new EventEmitter<number>();
