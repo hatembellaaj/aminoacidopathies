@@ -47,6 +47,7 @@ public class Structurefiche implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
+    @JsonIgnoreProperties(value = { "pathologie", "casconfirmes" }, allowSetters = true)
     private Fiche fiche;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -137,6 +138,11 @@ public class Structurefiche implements Serializable {
 
     public void setFiche(Fiche fiche) {
         this.fiche = fiche;
+    }
+
+    public Structurefiche fiche(Fiche fiche) {
+        this.setFiche(fiche);
+        return this;
     }
 
     @Override

@@ -2,6 +2,7 @@ package tn.mdweb.aminoacidopathies.service.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
+import tn.mdweb.aminoacidopathies.domain.Fiche;
 import tn.mdweb.aminoacidopathies.domain.enumeration.elienparente;
 import tn.mdweb.aminoacidopathies.domain.enumeration.elieudeces;
 
@@ -42,6 +43,8 @@ public class CasdecesbasageDTO implements Serializable {
     private Boolean np_circonstances_deces;
 
     private elieudeces lieu_deces;
+
+    private Fiche fiche;
 
     public Long getId() {
         return id;
@@ -171,6 +174,14 @@ public class CasdecesbasageDTO implements Serializable {
         this.lieu_deces = lieu_deces;
     }
 
+    public Fiche getFiche() {
+        return fiche;
+    }
+
+    public void setFiche(Fiche fiche) {
+        this.fiche = fiche;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -192,26 +203,44 @@ public class CasdecesbasageDTO implements Serializable {
         return Objects.hash(this.id);
     }
 
-    // prettier-ignore
     @Override
     public String toString() {
-        return "CasdecesbasageDTO{" +
-            "id=" + getId() +
-            ", confirme='" + getConfirme() + "'" +
-            ", code_registre='" + getCode_registre() + "'" +
-            ", suspecte='" + getSuspecte() + "'" +
-            ", lien_de_parente='" + getLien_de_parente() + "'" +
-            ", autre_lien_parente='" + getAutre_lien_parente() + "'" +
-            ", an_age_de_deces=" + getAn_age_de_deces() +
-            ", mois_age_de_deces=" + getMois_age_de_deces() +
-            ", jours_age_de_deces=" + getJours_age_de_deces() +
-            ", tbl_neuro='" + getTbl_neuro() + "'" +
-            ", tbl_hemorragique='" + getTbl_hemorragique() + "'" +
-            ", tbl_infx='" + getTbl_infx() + "'" +
-            ", autre_circonstances_deces='" + getAutre_circonstances_deces() + "'" +
-            ", bautre_circonstance_deces='" + getBautre_circonstance_deces() + "'" +
-            ", np_circonstances_deces='" + getNp_circonstances_deces() + "'" +
-            ", lieu_deces='" + getLieu_deces() + "'" +
-            "}";
+        return (
+            "CasdecesbasageDTO [id=" +
+            id +
+            ", confirme=" +
+            confirme +
+            ", code_registre=" +
+            code_registre +
+            ", suspecte=" +
+            suspecte +
+            ", lien_de_parente=" +
+            lien_de_parente +
+            ", autre_lien_parente=" +
+            autre_lien_parente +
+            ", an_age_de_deces=" +
+            an_age_de_deces +
+            ", mois_age_de_deces=" +
+            mois_age_de_deces +
+            ", jours_age_de_deces=" +
+            jours_age_de_deces +
+            ", tbl_neuro=" +
+            tbl_neuro +
+            ", tbl_hemorragique=" +
+            tbl_hemorragique +
+            ", tbl_infx=" +
+            tbl_infx +
+            ", autre_circonstances_deces=" +
+            autre_circonstances_deces +
+            ", bautre_circonstance_deces=" +
+            bautre_circonstance_deces +
+            ", np_circonstances_deces=" +
+            np_circonstances_deces +
+            ", lieu_deces=" +
+            lieu_deces +
+            ", fiche=" +
+            fiche +
+            "]"
+        );
     }
 }

@@ -356,11 +356,6 @@ public class Fiche implements Serializable {
     @OneToMany(mappedBy = "fiche")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     //@JsonIgnoreProperties(value = { "fiche" }, allowSetters = true)
-    private Set<Cassuspecte> cassuspectes = new HashSet<>();
-
-    @OneToMany(mappedBy = "fiche")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    //@JsonIgnoreProperties(value = { "fiche" }, allowSetters = true)
     private Set<Structurefiche> structurefiches = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -1457,16 +1452,6 @@ public class Fiche implements Serializable {
         return this;
     }
 
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
-
-    public Set<Cassuspecte> getCassuspectes() {
-        return cassuspectes;
-    }
-
-    public void setCassuspectes(Set<Cassuspecte> cassuspectes) {
-        this.cassuspectes = cassuspectes;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -1651,8 +1636,6 @@ public class Fiche implements Serializable {
             pathologie +
             ", casconfirmes=" +
             casconfirmes +
-            ", cassuspectes=" +
-            cassuspectes +
             ", structurefiches=" +
             structurefiches +
             "]"

@@ -120,6 +120,7 @@ public class Cassuspecte implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
+    @JsonIgnoreProperties(value = { "pathologie", "casconfirmes" }, allowSetters = true)
     private Fiche fiche;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -543,11 +544,16 @@ public class Cassuspecte implements Serializable {
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     public Fiche getFiche() {
-        return fiche;
+        return this.fiche;
     }
 
     public void setFiche(Fiche fiche) {
         this.fiche = fiche;
+    }
+
+    public Cassuspecte fiche(Fiche fiche) {
+        this.setFiche(fiche);
+        return this;
     }
 
     @Override
@@ -634,8 +640,8 @@ public class Cassuspecte implements Serializable {
             str_autres_criteres +
             ", critere_non_precise=" +
             critere_non_precise +
-            ", fiche=" +
-            fiche +
+            //            ", fiche=" +
+            //            fiche +
             "]"
         );
     }

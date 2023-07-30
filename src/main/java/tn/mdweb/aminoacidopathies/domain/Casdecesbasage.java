@@ -70,6 +70,10 @@ public class Casdecesbasage implements Serializable {
     @Column(name = "lieu_deces")
     private elieudeces lieu_deces;
 
+    @ManyToOne(optional = false) //champ obligatoire
+    @JoinColumn(name = "fiche_id", referencedColumnName = "id")
+    private Fiche fiche;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -282,6 +286,14 @@ public class Casdecesbasage implements Serializable {
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
+    public Fiche getFiche() {
+        return fiche;
+    }
+
+    public void setFiche(Fiche fiche) {
+        this.fiche = fiche;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -299,26 +311,44 @@ public class Casdecesbasage implements Serializable {
         return getClass().hashCode();
     }
 
-    // prettier-ignore
     @Override
     public String toString() {
-        return "Casdecesbasage{" +
-            "id=" + getId() +
-            ", confirme='" + getConfirme() + "'" +
-            ", code_registre='" + getCode_registre() + "'" +
-            ", suspecte='" + getSuspecte() + "'" +
-            ", lien_de_parente='" + getLien_de_parente() + "'" +
-            ", autre_lien_parente='" + getAutre_lien_parente() + "'" +
-            ", an_age_de_deces=" + getAn_age_de_deces() +
-            ", mois_age_de_deces=" + getMois_age_de_deces() +
-            ", jours_age_de_deces=" + getJours_age_de_deces() +
-            ", tbl_neuro='" + getTbl_neuro() + "'" +
-            ", tbl_hemorragique='" + getTbl_hemorragique() + "'" +
-            ", tbl_infx='" + getTbl_infx() + "'" +
-            ", autre_circonstances_deces='" + getAutre_circonstances_deces() + "'" +
-            ", bautre_circonstance_deces='" + getBautre_circonstance_deces() + "'" +
-            ", np_circonstances_deces='" + getNp_circonstances_deces() + "'" +
-            ", lieu_deces='" + getLieu_deces() + "'" +
-            "}";
+        return (
+            "Casdecesbasage [id=" +
+            id +
+            ", confirme=" +
+            confirme +
+            ", code_registre=" +
+            code_registre +
+            ", suspecte=" +
+            suspecte +
+            ", lien_de_parente=" +
+            lien_de_parente +
+            ", autre_lien_parente=" +
+            autre_lien_parente +
+            ", an_age_de_deces=" +
+            an_age_de_deces +
+            ", mois_age_de_deces=" +
+            mois_age_de_deces +
+            ", jours_age_de_deces=" +
+            jours_age_de_deces +
+            ", tbl_neuro=" +
+            tbl_neuro +
+            ", tbl_hemorragique=" +
+            tbl_hemorragique +
+            ", tbl_infx=" +
+            tbl_infx +
+            ", autre_circonstances_deces=" +
+            autre_circonstances_deces +
+            ", bautre_circonstance_deces=" +
+            bautre_circonstance_deces +
+            ", np_circonstances_deces=" +
+            np_circonstances_deces +
+            ", lieu_deces=" +
+            lieu_deces +
+            ", fiche=" +
+            fiche +
+            "]"
+        );
     }
 }
