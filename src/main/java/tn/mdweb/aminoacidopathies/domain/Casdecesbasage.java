@@ -1,7 +1,9 @@
 package tn.mdweb.aminoacidopathies.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import tn.mdweb.aminoacidopathies.domain.enumeration.elienparente;
@@ -69,6 +71,11 @@ public class Casdecesbasage implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "lieu_deces")
     private elieudeces lieu_deces;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties(value = { "pathologie", "casconfirmes" }, allowSetters = true)
+    private Fiche fiche;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -278,6 +285,19 @@ public class Casdecesbasage implements Serializable {
 
     public void setLieu_deces(elieudeces lieu_deces) {
         this.lieu_deces = lieu_deces;
+    }
+
+    public Fiche getFiche() {
+        return this.fiche;
+    }
+
+    public void setFiche(Fiche fiche) {
+        this.fiche = fiche;
+    }
+
+    public Casdecesbasage fiche(Fiche fiche) {
+        this.setFiche(fiche);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

@@ -30,6 +30,12 @@
         <dd>
           <span>{{ metabolique.resultat }}</span>
         </dd>
+        <dt><span>Fiche</span></dt>
+        <dd>
+          <div *ngIf="metabolique.fiche">
+            <a [routerLink]="['/fiche', metabolique.fiche.id, 'view']">{{ metabolique.fiche.id }}</a>
+          </div>
+        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

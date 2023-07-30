@@ -74,6 +74,12 @@
         <dd>
           <span>{{ casdecesbasage.lieu_deces }}</span>
         </dd>
+        <dt><span>Fiche</span></dt>
+        <dd>
+          <div *ngIf="casdecesbasage.fiche">
+            <a [routerLink]="['/fiche', casdecesbasage.fiche.id, 'view']">{{ casdecesbasage.fiche.id }}</a>
+          </div>
+        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

@@ -5,6 +5,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -54,7 +56,7 @@ public class CasdecesbasageResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/casdecesbasages")
-    public ResponseEntity<CasdecesbasageDTO> createCasdecesbasage(@RequestBody CasdecesbasageDTO casdecesbasageDTO)
+    public ResponseEntity<CasdecesbasageDTO> createCasdecesbasage(@Valid @RequestBody CasdecesbasageDTO casdecesbasageDTO)
         throws URISyntaxException {
         log.debug("REST request to save Casdecesbasage : {}", casdecesbasageDTO);
         if (casdecesbasageDTO.getId() != null) {
@@ -80,7 +82,7 @@ public class CasdecesbasageResource {
     @PutMapping("/casdecesbasages/{id}")
     public ResponseEntity<CasdecesbasageDTO> updateCasdecesbasage(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody CasdecesbasageDTO casdecesbasageDTO
+        @Valid @RequestBody CasdecesbasageDTO casdecesbasageDTO
     ) throws URISyntaxException {
         log.debug("REST request to update Casdecesbasage : {}, {}", id, casdecesbasageDTO);
         if (casdecesbasageDTO.getId() == null) {
@@ -115,7 +117,7 @@ public class CasdecesbasageResource {
     @PatchMapping(value = "/casdecesbasages/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<CasdecesbasageDTO> partialUpdateCasdecesbasage(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody CasdecesbasageDTO casdecesbasageDTO
+        @NotNull @RequestBody CasdecesbasageDTO casdecesbasageDTO
     ) throws URISyntaxException {
         log.debug("REST request to partial update Casdecesbasage partially : {}, {}", id, casdecesbasageDTO);
         if (casdecesbasageDTO.getId() == null) {

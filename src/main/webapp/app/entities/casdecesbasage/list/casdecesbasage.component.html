@@ -128,6 +128,12 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
+          <th scope="col" jhiSortBy="fiche.id">
+            <div class="d-flex">
+              <span>Fiche</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -151,6 +157,11 @@
           <td>{{ casdecesbasage.bautre_circonstance_deces }}</td>
           <td>{{ casdecesbasage.np_circonstances_deces }}</td>
           <td>{{ casdecesbasage.lieu_deces }}</td>
+          <td>
+            <div *ngIf="casdecesbasage.fiche">
+              <a [routerLink]="['/fiche', casdecesbasage.fiche.id, 'view']">{{ casdecesbasage.fiche.id }}</a>
+            </div>
+          </td>
           <td class="text-end">
             <div class="btn-group">
               <button

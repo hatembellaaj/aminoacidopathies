@@ -105,7 +105,7 @@ class FicheResourceIT {
     private static final String UPDATED_AUTRE_CIRCONSTANCE_DECES = "BBBBBBBBBB";
 
     private static final elieudeces DEFAULT_LIEU_DECES = elieudeces.DOMICILE;
-    private static final elieudeces UPDATED_LIEU_DECES = elieudeces.DOMICILE;
+    private static final elieudeces UPDATED_LIEU_DECES = elieudeces.STRUCTURE_SANTE_PUBLIQUE;
 
     private static final econsanguinite DEFAULT_CONSANGUINITE = econsanguinite.OUI;
     private static final econsanguinite UPDATED_CONSANGUINITE = econsanguinite.NON;

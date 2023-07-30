@@ -329,6 +329,17 @@
             formControlName="critere_non_precise"
           />
         </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_fiche">Fiche</label>
+          <select class="form-control" id="field_fiche" data-cy="fiche" name="fiche" formControlName="fiche" [compareWith]="compareFiche">
+            <option *ngIf="!editForm.get('fiche')!.value" [ngValue]="null" selected></option>
+            <option [ngValue]="ficheOption" *ngFor="let ficheOption of fichesSharedCollection">{{ ficheOption.id }}</option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['fiche'])!.invalid && (editForm.get(['fiche'])!.dirty || editForm.get(['fiche'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['fiche'])?.errors?.required"> This field is required. </small>
+        </div>
       </div>
 
       <div>

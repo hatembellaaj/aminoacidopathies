@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import tn.mdweb.aminoacidopathies.IntegrationTest;
 import tn.mdweb.aminoacidopathies.domain.Cassuspecte;
+import tn.mdweb.aminoacidopathies.domain.Fiche;
 import tn.mdweb.aminoacidopathies.domain.enumeration.elienparente;
 import tn.mdweb.aminoacidopathies.repository.CassuspecteRepository;
 import tn.mdweb.aminoacidopathies.service.dto.CassuspecteDTO;
@@ -184,6 +185,16 @@ class CassuspecteResourceIT {
             .autre_criteres(DEFAULT_AUTRE_CRITERES)
             .str_autres_criteres(DEFAULT_STR_AUTRES_CRITERES)
             .critere_non_precise(DEFAULT_CRITERE_NON_PRECISE);
+        // Add required entity
+        Fiche fiche;
+        if (TestUtil.findAll(em, Fiche.class).isEmpty()) {
+            fiche = FicheResourceIT.createEntity(em);
+            em.persist(fiche);
+            em.flush();
+        } else {
+            fiche = TestUtil.findAll(em, Fiche.class).get(0);
+        }
+        cassuspecte.setFiche(fiche);
         return cassuspecte;
     }
 
@@ -226,6 +237,16 @@ class CassuspecteResourceIT {
             .autre_criteres(UPDATED_AUTRE_CRITERES)
             .str_autres_criteres(UPDATED_STR_AUTRES_CRITERES)
             .critere_non_precise(UPDATED_CRITERE_NON_PRECISE);
+        // Add required entity
+        Fiche fiche;
+        if (TestUtil.findAll(em, Fiche.class).isEmpty()) {
+            fiche = FicheResourceIT.createUpdatedEntity(em);
+            em.persist(fiche);
+            em.flush();
+        } else {
+            fiche = TestUtil.findAll(em, Fiche.class).get(0);
+        }
+        cassuspecte.setFiche(fiche);
         return cassuspecte;
     }
 

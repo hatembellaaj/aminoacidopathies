@@ -35,6 +35,7 @@ describe('Casdecesbasage Form Service', () => {
             bautre_circonstance_deces: expect.any(Object),
             np_circonstances_deces: expect.any(Object),
             lieu_deces: expect.any(Object),
+            fiche: expect.any(Object),
           })
         );
       });
@@ -60,6 +61,7 @@ describe('Casdecesbasage Form Service', () => {
             bautre_circonstance_deces: expect.any(Object),
             np_circonstances_deces: expect.any(Object),
             lieu_deces: expect.any(Object),
+            fiche: expect.any(Object),
           })
         );
       });

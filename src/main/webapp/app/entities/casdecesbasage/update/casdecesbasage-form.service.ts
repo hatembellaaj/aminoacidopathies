@@ -36,6 +36,7 @@ type CasdecesbasageFormGroupContent = {
   bautre_circonstance_deces: FormControl<ICasdecesbasage['bautre_circonstance_deces']>;
   np_circonstances_deces: FormControl<ICasdecesbasage['np_circonstances_deces']>;
   lieu_deces: FormControl<ICasdecesbasage['lieu_deces']>;
+  fiche: FormControl<ICasdecesbasage['fiche']>;
 };
 
 export type CasdecesbasageFormGroup = FormGroup<CasdecesbasageFormGroupContent>;
@@ -70,6 +71,9 @@ export class CasdecesbasageFormService {
       bautre_circonstance_deces: new FormControl(casdecesbasageRawValue.bautre_circonstance_deces),
       np_circonstances_deces: new FormControl(casdecesbasageRawValue.np_circonstances_deces),
       lieu_deces: new FormControl(casdecesbasageRawValue.lieu_deces),
+      fiche: new FormControl(casdecesbasageRawValue.fiche, {
+        validators: [Validators.required],
+      }),
     });
   }
 

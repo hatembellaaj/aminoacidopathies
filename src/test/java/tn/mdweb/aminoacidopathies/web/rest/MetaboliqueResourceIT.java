@@ -18,6 +18,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import tn.mdweb.aminoacidopathies.IntegrationTest;
+import tn.mdweb.aminoacidopathies.domain.Fiche;
 import tn.mdweb.aminoacidopathies.domain.Metabolique;
 import tn.mdweb.aminoacidopathies.domain.enumeration.eResultat;
 import tn.mdweb.aminoacidopathies.domain.enumeration.efait;
@@ -79,6 +80,16 @@ class MetaboliqueResourceIT {
             .fait(DEFAULT_FAIT)
             .laboratoire(DEFAULT_LABORATOIRE)
             .resultat(DEFAULT_RESULTAT);
+        // Add required entity
+        Fiche fiche;
+        if (TestUtil.findAll(em, Fiche.class).isEmpty()) {
+            fiche = FicheResourceIT.createEntity(em);
+            em.persist(fiche);
+            em.flush();
+        } else {
+            fiche = TestUtil.findAll(em, Fiche.class).get(0);
+        }
+        metabolique.setFiche(fiche);
         return metabolique;
     }
 
@@ -94,6 +105,16 @@ class MetaboliqueResourceIT {
             .fait(UPDATED_FAIT)
             .laboratoire(UPDATED_LABORATOIRE)
             .resultat(UPDATED_RESULTAT);
+        // Add required entity
+        Fiche fiche;
+        if (TestUtil.findAll(em, Fiche.class).isEmpty()) {
+            fiche = FicheResourceIT.createUpdatedEntity(em);
+            em.persist(fiche);
+            em.flush();
+        } else {
+            fiche = TestUtil.findAll(em, Fiche.class).get(0);
+        }
+        metabolique.setFiche(fiche);
         return metabolique;
     }
 

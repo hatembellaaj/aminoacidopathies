@@ -62,6 +62,12 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
+          <th scope="col" jhiSortBy="fiche.id">
+            <div class="d-flex">
+              <span>Fiche</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -74,6 +80,11 @@
           <td>{{ metabolique.fait }}</td>
           <td>{{ metabolique.laboratoire }}</td>
           <td>{{ metabolique.resultat }}</td>
+          <td>
+            <div *ngIf="metabolique.fiche">
+              <a [routerLink]="['/fiche', metabolique.fiche.id, 'view']">{{ metabolique.fiche.id }}</a>
+            </div>
+          </td>
           <td class="text-end">
             <div class="btn-group">
               <button

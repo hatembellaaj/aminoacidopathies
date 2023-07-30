@@ -1,3 +1,4 @@
+import { IFiche } from 'app/entities/fiche/fiche.model';
 import { ename } from 'app/entities/enumerations/ename.model';
 import { efait } from 'app/entities/enumerations/efait.model';
 import { elaboratoire } from 'app/entities/enumerations/elaboratoire.model';
@@ -9,6 +10,7 @@ export interface IMetabolique {
   fait?: efait | null;
   laboratoire?: elaboratoire | null;
   resultat?: eResultat | null;
+  fiche?: Pick<IFiche, 'id'> | null;
 }
 
 export type NewMetabolique = Omit<IMetabolique, 'id'> & { id: null };

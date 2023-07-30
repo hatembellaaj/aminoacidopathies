@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { finalize, map } from 'rxjs/operators';
 
 import { CasdecesbasageFormService, CasdecesbasageFormGroup } from './casdecesbasage-form.service';
 import { ICasdecesbasage } from '../casdecesbasage.model';
 import { CasdecesbasageService } from '../service/casdecesbasage.service';
+import { IFiche } from 'app/entities/fiche/fiche.model';
+import { FicheService } from 'app/entities/fiche/service/fiche.service';
 import { elienparente } from 'app/entities/enumerations/elienparente.model';
 import { elieudeces } from 'app/entities/enumerations/elieudeces.model';
 
@@ -20,13 +22,18 @@ export class CasdecesbasageUpdateComponent implements OnInit {
   elienparenteValues = Object.keys(elienparente);
   elieudecesValues = Object.keys(elieudeces);
 
+  fichesSharedCollection: IFiche[] = [];
+
   editForm: CasdecesbasageFormGroup = this.casdecesbasageFormService.createCasdecesbasageFormGroup();
 
   constructor(
     protected casdecesbasageService: CasdecesbasageService,
     protected casdecesbasageFormService: CasdecesbasageFormService,
+    protected ficheService: FicheService,
     protected activatedRoute: ActivatedRoute
   ) {}
+
+  compareFiche = (o1: IFiche | null, o2: IFiche | null): boolean => this.ficheService.compareFiche(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ casdecesbasage }) => {
@@ -34,6 +41,8 @@ export class CasdecesbasageUpdateComponent implements OnInit {
       if (casdecesbasage) {
         this.updateForm(casdecesbasage);
       }
+
+      this.loadRelationshipsOptions();
     });
   }
 
@@ -73,5 +82,18 @@ export class CasdecesbasageUpdateComponent implements OnInit {
   protected updateForm(casdecesbasage: ICasdecesbasage): void {
     this.casdecesbasage = casdecesbasage;
     this.casdecesbasageFormService.resetForm(this.editForm, casdecesbasage);
+
+    this.fichesSharedCollection = this.ficheService.addFicheToCollectionIfMissing<IFiche>(
+      this.fichesSharedCollection,
+      casdecesbasage.fiche
+    );
+  }
+
+  protected loadRelationshipsOptions(): void {
+    this.ficheService
+      .query()
+      .pipe(map((res: HttpResponse<IFiche[]>) => res.body ?? []))
+      .pipe(map((fiches: IFiche[]) => this.ficheService.addFicheToCollectionIfMissing<IFiche>(fiches, this.casdecesbasage?.fiche)))
+      .subscribe((fiches: IFiche[]) => (this.fichesSharedCollection = fiches));
   }
 }

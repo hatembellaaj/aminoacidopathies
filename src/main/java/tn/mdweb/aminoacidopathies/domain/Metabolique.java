@@ -1,7 +1,9 @@
 package tn.mdweb.aminoacidopathies.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import tn.mdweb.aminoacidopathies.domain.enumeration.eResultat;
@@ -40,6 +42,11 @@ public class Metabolique implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "resultat")
     private eResultat resultat;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties(value = { "pathologie", "casconfirmes" }, allowSetters = true)
+    private Fiche fiche;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -106,6 +113,19 @@ public class Metabolique implements Serializable {
 
     public void setResultat(eResultat resultat) {
         this.resultat = resultat;
+    }
+
+    public Fiche getFiche() {
+        return this.fiche;
+    }
+
+    public void setFiche(Fiche fiche) {
+        this.fiche = fiche;
+    }
+
+    public Metabolique fiche(Fiche fiche) {
+        this.setFiche(fiche);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

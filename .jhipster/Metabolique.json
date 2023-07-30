@@ -27,6 +27,14 @@
   "name": "Metabolique",
   "pagination": "pagination",
   "readOnly": false,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "fiche",
+      "relationshipName": "fiche",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": ["required"]
+    }
+  ],
   "service": "serviceClass"
 }

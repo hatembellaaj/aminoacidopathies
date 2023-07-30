@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import tn.mdweb.aminoacidopathies.IntegrationTest;
 import tn.mdweb.aminoacidopathies.domain.Casdecesbasage;
+import tn.mdweb.aminoacidopathies.domain.Fiche;
 import tn.mdweb.aminoacidopathies.domain.enumeration.elienparente;
 import tn.mdweb.aminoacidopathies.domain.enumeration.elieudeces;
 import tn.mdweb.aminoacidopathies.repository.CasdecesbasageRepository;
@@ -121,6 +122,16 @@ class CasdecesbasageResourceIT {
             .bautre_circonstance_deces(DEFAULT_BAUTRE_CIRCONSTANCE_DECES)
             .np_circonstances_deces(DEFAULT_NP_CIRCONSTANCES_DECES)
             .lieu_deces(DEFAULT_LIEU_DECES);
+        // Add required entity
+        Fiche fiche;
+        if (TestUtil.findAll(em, Fiche.class).isEmpty()) {
+            fiche = FicheResourceIT.createEntity(em);
+            em.persist(fiche);
+            em.flush();
+        } else {
+            fiche = TestUtil.findAll(em, Fiche.class).get(0);
+        }
+        casdecesbasage.setFiche(fiche);
         return casdecesbasage;
     }
 
@@ -147,6 +158,16 @@ class CasdecesbasageResourceIT {
             .bautre_circonstance_deces(UPDATED_BAUTRE_CIRCONSTANCE_DECES)
             .np_circonstances_deces(UPDATED_NP_CIRCONSTANCES_DECES)
             .lieu_deces(UPDATED_LIEU_DECES);
+        // Add required entity
+        Fiche fiche;
+        if (TestUtil.findAll(em, Fiche.class).isEmpty()) {
+            fiche = FicheResourceIT.createUpdatedEntity(em);
+            em.persist(fiche);
+            em.flush();
+        } else {
+            fiche = TestUtil.findAll(em, Fiche.class).get(0);
+        }
+        casdecesbasage.setFiche(fiche);
         return casdecesbasage;
     }
 

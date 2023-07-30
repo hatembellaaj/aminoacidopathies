@@ -2,6 +2,7 @@ package tn.mdweb.aminoacidopathies.service.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.validation.constraints.*;
 import tn.mdweb.aminoacidopathies.domain.enumeration.elienparente;
 import tn.mdweb.aminoacidopathies.domain.enumeration.elieudeces;
 
@@ -42,6 +43,8 @@ public class CasdecesbasageDTO implements Serializable {
     private Boolean np_circonstances_deces;
 
     private elieudeces lieu_deces;
+
+    private FicheDTO fiche;
 
     public Long getId() {
         return id;
@@ -171,6 +174,14 @@ public class CasdecesbasageDTO implements Serializable {
         this.lieu_deces = lieu_deces;
     }
 
+    public FicheDTO getFiche() {
+        return fiche;
+    }
+
+    public void setFiche(FicheDTO fiche) {
+        this.fiche = fiche;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -212,6 +223,7 @@ public class CasdecesbasageDTO implements Serializable {
             ", bautre_circonstance_deces='" + getBautre_circonstance_deces() + "'" +
             ", np_circonstances_deces='" + getNp_circonstances_deces() + "'" +
             ", lieu_deces='" + getLieu_deces() + "'" +
+            ", fiche=" + getFiche() +
             "}";
     }
 }

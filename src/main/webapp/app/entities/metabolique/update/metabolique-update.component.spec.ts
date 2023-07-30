@@ -9,6 +9,8 @@ import { of, Subject, from } from 'rxjs';
 import { MetaboliqueFormService } from './metabolique-form.service';
 import { MetaboliqueService } from '../service/metabolique.service';
 import { IMetabolique } from '../metabolique.model';
+import { IFiche } from 'app/entities/fiche/fiche.model';
+import { FicheService } from 'app/entities/fiche/service/fiche.service';
 
 import { MetaboliqueUpdateComponent } from './metabolique-update.component';
 
@@ -18,6 +20,7 @@ describe('Metabolique Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let metaboliqueFormService: MetaboliqueFormService;
   let metaboliqueService: MetaboliqueService;
+  let ficheService: FicheService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -40,17 +43,43 @@ describe('Metabolique Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     metaboliqueFormService = TestBed.inject(MetaboliqueFormService);
     metaboliqueService = TestBed.inject(MetaboliqueService);
+    ficheService = TestBed.inject(FicheService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should update editForm', () => {
+    it('Should call Fiche query and add missing value', () => {
       const metabolique: IMetabolique = { id: 456 };
+      const fiche: IFiche = { id: 78408 };
+      metabolique.fiche = fiche;
+
+      const ficheCollection: IFiche[] = [{ id: 32389 }];
+      jest.spyOn(ficheService, 'query').mockReturnValue(of(new HttpResponse({ body: ficheCollection })));
+      const additionalFiches = [fiche];
+      const expectedCollection: IFiche[] = [...additionalFiches, ...ficheCollection];
+      jest.spyOn(ficheService, 'addFicheToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ metabolique });
       comp.ngOnInit();
 
+      expect(ficheService.query).toHaveBeenCalled();
+      expect(ficheService.addFicheToCollectionIfMissing).toHaveBeenCalledWith(
+        ficheCollection,
+        ...additionalFiches.map(expect.objectContaining)
+      );
+      expect(comp.fichesSharedCollection).toEqual(expectedCollection);
+    });
+
+    it('Should update editForm', () => {
+      const metabolique: IMetabolique = { id: 456 };
+      const fiche: IFiche = { id: 32094 };
+      metabolique.fiche = fiche;
+
+      activatedRoute.data = of({ metabolique });
+      comp.ngOnInit();
+
+      expect(comp.fichesSharedCollection).toContain(fiche);
       expect(comp.metabolique).toEqual(metabolique);
     });
   });
@@ -120,6 +149,18 @@ describe('Metabolique Management Update Component', () => {
       expect(metaboliqueService.update).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('Compare relationships', () => {
+    describe('compareFiche', () => {
+      it('Should forward to ficheService', () => {
+        const entity = { id: 123 };
+        const entity2 = { id: 456 };
+        jest.spyOn(ficheService, 'compareFiche');
+        comp.compareFiche(entity, entity2);
+        expect(ficheService.compareFiche).toHaveBeenCalledWith(entity, entity2);
+      });
     });
   });
 });

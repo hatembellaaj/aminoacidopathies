@@ -138,6 +138,12 @@
         <dd>
           <span>{{ cassuspecte.critere_non_precise }}</span>
         </dd>
+        <dt><span>Fiche</span></dt>
+        <dd>
+          <div *ngIf="cassuspecte.fiche">
+            <a [routerLink]="['/fiche', cassuspecte.fiche.id, 'view']">{{ cassuspecte.fiche.id }}</a>
+          </div>
+        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

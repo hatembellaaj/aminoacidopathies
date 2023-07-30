@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { finalize, map } from 'rxjs/operators';
 
 import { CassuspecteFormService, CassuspecteFormGroup } from './cassuspecte-form.service';
 import { ICassuspecte } from '../cassuspecte.model';
 import { CassuspecteService } from '../service/cassuspecte.service';
+import { IFiche } from 'app/entities/fiche/fiche.model';
+import { FicheService } from 'app/entities/fiche/service/fiche.service';
 import { elienparente } from 'app/entities/enumerations/elienparente.model';
 
 @Component({
@@ -18,13 +20,18 @@ export class CassuspecteUpdateComponent implements OnInit {
   cassuspecte: ICassuspecte | null = null;
   elienparenteValues = Object.keys(elienparente);
 
+  fichesSharedCollection: IFiche[] = [];
+
   editForm: CassuspecteFormGroup = this.cassuspecteFormService.createCassuspecteFormGroup();
 
   constructor(
     protected cassuspecteService: CassuspecteService,
     protected cassuspecteFormService: CassuspecteFormService,
+    protected ficheService: FicheService,
     protected activatedRoute: ActivatedRoute
   ) {}
+
+  compareFiche = (o1: IFiche | null, o2: IFiche | null): boolean => this.ficheService.compareFiche(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ cassuspecte }) => {
@@ -32,6 +39,8 @@ export class CassuspecteUpdateComponent implements OnInit {
       if (cassuspecte) {
         this.updateForm(cassuspecte);
       }
+
+      this.loadRelationshipsOptions();
     });
   }
 
@@ -71,5 +80,15 @@ export class CassuspecteUpdateComponent implements OnInit {
   protected updateForm(cassuspecte: ICassuspecte): void {
     this.cassuspecte = cassuspecte;
     this.cassuspecteFormService.resetForm(this.editForm, cassuspecte);
+
+    this.fichesSharedCollection = this.ficheService.addFicheToCollectionIfMissing<IFiche>(this.fichesSharedCollection, cassuspecte.fiche);
+  }
+
+  protected loadRelationshipsOptions(): void {
+    this.ficheService
+      .query()
+      .pipe(map((res: HttpResponse<IFiche[]>) => res.body ?? []))
+      .pipe(map((fiches: IFiche[]) => this.ficheService.addFicheToCollectionIfMissing<IFiche>(fiches, this.cassuspecte?.fiche)))
+      .subscribe((fiches: IFiche[]) => (this.fichesSharedCollection = fiches));
   }
 }

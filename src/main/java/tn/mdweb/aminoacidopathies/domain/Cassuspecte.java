@@ -3,7 +3,7 @@ package tn.mdweb.aminoacidopathies.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import tn.mdweb.aminoacidopathies.domain.enumeration.elienparente;
@@ -120,6 +120,7 @@ public class Cassuspecte implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
+    @JsonIgnoreProperties(value = { "pathologie", "casconfirmes" }, allowSetters = true)
     private Fiche fiche;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -540,15 +541,20 @@ public class Cassuspecte implements Serializable {
         this.critere_non_precise = critere_non_precise;
     }
 
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
-
     public Fiche getFiche() {
-        return fiche;
+        return this.fiche;
     }
 
     public void setFiche(Fiche fiche) {
         this.fiche = fiche;
     }
+
+    public Cassuspecte fiche(Fiche fiche) {
+        this.setFiche(fiche);
+        return this;
+    }
+
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
     public boolean equals(Object o) {
@@ -567,76 +573,42 @@ public class Cassuspecte implements Serializable {
         return getClass().hashCode();
     }
 
+    // prettier-ignore
     @Override
     public String toString() {
-        return (
-            "Cassuspecte [id=" +
-            id +
-            ", lienparente=" +
-            lienparente +
-            ", lienparenteautre=" +
-            lienparenteautre +
-            ", signes_neurologiques=" +
-            signes_neurologiques +
-            ", troubles_de_la_conscience=" +
-            troubles_de_la_conscience +
-            ", retard_psychomoteur=" +
-            retard_psychomoteur +
-            ", retard_mental=" +
-            retard_mental +
-            ", signes_du_spectre_autistique=" +
-            signes_du_spectre_autistique +
-            ", epilepsie=" +
-            epilepsie +
-            ", crise_pseudoporphyrique=" +
-            crise_pseudoporphyrique +
-            ", autres_signes_neurologiques=" +
-            autres_signes_neurologiques +
-            ", signes_hepatiques=" +
-            signes_hepatiques +
-            ", ictere=" +
-            ictere +
-            ", ballonnement=" +
-            ballonnement +
-            ", syndrome_hemorragique=" +
-            syndrome_hemorragique +
-            ", autres_signes_hepatiques=" +
-            autres_signes_hepatiques +
-            ", signes_osseux=" +
-            signes_osseux +
-            ", signes_de_rachitisme=" +
-            signes_de_rachitisme +
-            ", autre_signes_osseux=" +
-            autre_signes_osseux +
-            ", manifestations_thrombotiques=" +
-            manifestations_thrombotiques +
-            ", cerebrale=" +
-            cerebrale +
-            ", autre_manifestations_thrombotiques=" +
-            autre_manifestations_thrombotiques +
-            ", manifestations_ophtalmologiques=" +
-            manifestations_ophtalmologiques +
-            ", luxation=" +
-            luxation +
-            ", ectopie_cristalinienne=" +
-            ectopie_cristalinienne +
-            ", cataracte=" +
-            cataracte +
-            ", glaucome=" +
-            glaucome +
-            ", myopie=" +
-            myopie +
-            ", manifestations_ophtalmologiques_autre=" +
-            manifestations_ophtalmologiques_autre +
-            ", autre_criteres=" +
-            autre_criteres +
-            ", str_autres_criteres=" +
-            str_autres_criteres +
-            ", critere_non_precise=" +
-            critere_non_precise +
-            ", fiche=" +
-            fiche +
-            "]"
-        );
+        return "Cassuspecte{" +
+            "id=" + getId() +
+            ", lienparente='" + getLienparente() + "'" +
+            ", lienparenteautre='" + getLienparenteautre() + "'" +
+            ", signes_neurologiques='" + getSignes_neurologiques() + "'" +
+            ", troubles_de_la_conscience='" + getTroubles_de_la_conscience() + "'" +
+            ", retard_psychomoteur='" + getRetard_psychomoteur() + "'" +
+            ", retard_mental='" + getRetard_mental() + "'" +
+            ", signes_du_spectre_autistique='" + getSignes_du_spectre_autistique() + "'" +
+            ", epilepsie='" + getEpilepsie() + "'" +
+            ", crise_pseudoporphyrique='" + getCrise_pseudoporphyrique() + "'" +
+            ", autres_signes_neurologiques='" + getAutres_signes_neurologiques() + "'" +
+            ", signes_hepatiques='" + getSignes_hepatiques() + "'" +
+            ", ictere='" + getIctere() + "'" +
+            ", ballonnement='" + getBallonnement() + "'" +
+            ", syndrome_hemorragique='" + getSyndrome_hemorragique() + "'" +
+            ", autres_signes_hepatiques='" + getAutres_signes_hepatiques() + "'" +
+            ", signes_osseux='" + getSignes_osseux() + "'" +
+            ", signes_de_rachitisme='" + getSignes_de_rachitisme() + "'" +
+            ", autre_signes_osseux='" + getAutre_signes_osseux() + "'" +
+            ", manifestations_thrombotiques='" + getManifestations_thrombotiques() + "'" +
+            ", cerebrale='" + getCerebrale() + "'" +
+            ", autre_manifestations_thrombotiques='" + getAutre_manifestations_thrombotiques() + "'" +
+            ", manifestations_ophtalmologiques='" + getManifestations_ophtalmologiques() + "'" +
+            ", luxation='" + getLuxation() + "'" +
+            ", ectopie_cristalinienne='" + getEctopie_cristalinienne() + "'" +
+            ", cataracte='" + getCataracte() + "'" +
+            ", glaucome='" + getGlaucome() + "'" +
+            ", myopie='" + getMyopie() + "'" +
+            ", manifestations_ophtalmologiques_autre='" + getManifestations_ophtalmologiques_autre() + "'" +
+            ", autre_criteres='" + getAutre_criteres() + "'" +
+            ", str_autres_criteres='" + getStr_autres_criteres() + "'" +
+            ", critere_non_precise='" + getCritere_non_precise() + "'" +
+            "}";
     }
 }

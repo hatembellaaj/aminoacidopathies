@@ -2,6 +2,7 @@ package tn.mdweb.aminoacidopathies.service.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.validation.constraints.*;
 import tn.mdweb.aminoacidopathies.domain.enumeration.eResultat;
 import tn.mdweb.aminoacidopathies.domain.enumeration.efait;
 import tn.mdweb.aminoacidopathies.domain.enumeration.elaboratoire;
@@ -22,6 +23,8 @@ public class MetaboliqueDTO implements Serializable {
     private elaboratoire laboratoire;
 
     private eResultat resultat;
+
+    private FicheDTO fiche;
 
     public Long getId() {
         return id;
@@ -63,6 +66,14 @@ public class MetaboliqueDTO implements Serializable {
         this.resultat = resultat;
     }
 
+    public FicheDTO getFiche() {
+        return fiche;
+    }
+
+    public void setFiche(FicheDTO fiche) {
+        this.fiche = fiche;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -93,6 +104,7 @@ public class MetaboliqueDTO implements Serializable {
             ", fait='" + getFait() + "'" +
             ", laboratoire='" + getLaboratoire() + "'" +
             ", resultat='" + getResultat() + "'" +
+            ", fiche=" + getFiche() +
             "}";
     }
 }

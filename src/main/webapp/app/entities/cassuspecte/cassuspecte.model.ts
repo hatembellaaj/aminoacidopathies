@@ -1,3 +1,4 @@
+import { IFiche } from 'app/entities/fiche/fiche.model';
 import { elienparente } from 'app/entities/enumerations/elienparente.model';
 
 export interface ICassuspecte {
@@ -33,6 +34,7 @@ export interface ICassuspecte {
   autre_criteres?: boolean | null;
   str_autres_criteres?: string | null;
   critere_non_precise?: boolean | null;
+  fiche?: Pick<IFiche, 'id'> | null;
 }
 
 export type NewCassuspecte = Omit<ICassuspecte, 'id'> & { id: null };

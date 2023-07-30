@@ -5,6 +5,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -54,7 +56,7 @@ public class MetaboliqueResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/metaboliques")
-    public ResponseEntity<MetaboliqueDTO> createMetabolique(@RequestBody MetaboliqueDTO metaboliqueDTO) throws URISyntaxException {
+    public ResponseEntity<MetaboliqueDTO> createMetabolique(@Valid @RequestBody MetaboliqueDTO metaboliqueDTO) throws URISyntaxException {
         log.debug("REST request to save Metabolique : {}", metaboliqueDTO);
         if (metaboliqueDTO.getId() != null) {
             throw new BadRequestAlertException("A new metabolique cannot already have an ID", ENTITY_NAME, "idexists");
@@ -79,7 +81,7 @@ public class MetaboliqueResource {
     @PutMapping("/metaboliques/{id}")
     public ResponseEntity<MetaboliqueDTO> updateMetabolique(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody MetaboliqueDTO metaboliqueDTO
+        @Valid @RequestBody MetaboliqueDTO metaboliqueDTO
     ) throws URISyntaxException {
         log.debug("REST request to update Metabolique : {}, {}", id, metaboliqueDTO);
         if (metaboliqueDTO.getId() == null) {
@@ -114,7 +116,7 @@ public class MetaboliqueResource {
     @PatchMapping(value = "/metaboliques/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<MetaboliqueDTO> partialUpdateMetabolique(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody MetaboliqueDTO metaboliqueDTO
+        @NotNull @RequestBody MetaboliqueDTO metaboliqueDTO
     ) throws URISyntaxException {
         log.debug("REST request to partial update Metabolique partially : {}, {}", id, metaboliqueDTO);
         if (metaboliqueDTO.getId() == null) {

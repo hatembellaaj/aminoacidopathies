@@ -22,6 +22,7 @@ type MetaboliqueFormGroupContent = {
   fait: FormControl<IMetabolique['fait']>;
   laboratoire: FormControl<IMetabolique['laboratoire']>;
   resultat: FormControl<IMetabolique['resultat']>;
+  fiche: FormControl<IMetabolique['fiche']>;
 };
 
 export type MetaboliqueFormGroup = FormGroup<MetaboliqueFormGroupContent>;
@@ -45,6 +46,9 @@ export class MetaboliqueFormService {
       fait: new FormControl(metaboliqueRawValue.fait),
       laboratoire: new FormControl(metaboliqueRawValue.laboratoire),
       resultat: new FormControl(metaboliqueRawValue.resultat),
+      fiche: new FormControl(metaboliqueRawValue.fiche, {
+        validators: [Validators.required],
+      }),
     });
   }
 

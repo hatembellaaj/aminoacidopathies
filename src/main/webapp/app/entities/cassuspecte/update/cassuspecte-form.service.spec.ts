@@ -51,6 +51,7 @@ describe('Cassuspecte Form Service', () => {
             autre_criteres: expect.any(Object),
             str_autres_criteres: expect.any(Object),
             critere_non_precise: expect.any(Object),
+            fiche: expect.any(Object),
           })
         );
       });
@@ -92,6 +93,7 @@ describe('Cassuspecte Form Service', () => {
             autre_criteres: expect.any(Object),
             str_autres_criteres: expect.any(Object),
             critere_non_precise: expect.any(Object),
+            fiche: expect.any(Object),
           })
         );
       });

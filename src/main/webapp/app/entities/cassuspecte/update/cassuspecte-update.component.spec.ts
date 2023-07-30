@@ -9,6 +9,8 @@ import { of, Subject, from } from 'rxjs';
 import { CassuspecteFormService } from './cassuspecte-form.service';
 import { CassuspecteService } from '../service/cassuspecte.service';
 import { ICassuspecte } from '../cassuspecte.model';
+import { IFiche } from 'app/entities/fiche/fiche.model';
+import { FicheService } from 'app/entities/fiche/service/fiche.service';
 
 import { CassuspecteUpdateComponent } from './cassuspecte-update.component';
 
@@ -18,6 +20,7 @@ describe('Cassuspecte Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let cassuspecteFormService: CassuspecteFormService;
   let cassuspecteService: CassuspecteService;
+  let ficheService: FicheService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -40,17 +43,43 @@ describe('Cassuspecte Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     cassuspecteFormService = TestBed.inject(CassuspecteFormService);
     cassuspecteService = TestBed.inject(CassuspecteService);
+    ficheService = TestBed.inject(FicheService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should update editForm', () => {
+    it('Should call Fiche query and add missing value', () => {
       const cassuspecte: ICassuspecte = { id: 456 };
+      const fiche: IFiche = { id: 99662 };
+      cassuspecte.fiche = fiche;
+
+      const ficheCollection: IFiche[] = [{ id: 32055 }];
+      jest.spyOn(ficheService, 'query').mockReturnValue(of(new HttpResponse({ body: ficheCollection })));
+      const additionalFiches = [fiche];
+      const expectedCollection: IFiche[] = [...additionalFiches, ...ficheCollection];
+      jest.spyOn(ficheService, 'addFicheToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ cassuspecte });
       comp.ngOnInit();
 
+      expect(ficheService.query).toHaveBeenCalled();
+      expect(ficheService.addFicheToCollectionIfMissing).toHaveBeenCalledWith(
+        ficheCollection,
+        ...additionalFiches.map(expect.objectContaining)
+      );
+      expect(comp.fichesSharedCollection).toEqual(expectedCollection);
+    });
+
+    it('Should update editForm', () => {
+      const cassuspecte: ICassuspecte = { id: 456 };
+      const fiche: IFiche = { id: 14718 };
+      cassuspecte.fiche = fiche;
+
+      activatedRoute.data = of({ cassuspecte });
+      comp.ngOnInit();
+
+      expect(comp.fichesSharedCollection).toContain(fiche);
       expect(comp.cassuspecte).toEqual(cassuspecte);
     });
   });
@@ -120,6 +149,18 @@ describe('Cassuspecte Management Update Component', () => {
       expect(cassuspecteService.update).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('Compare relationships', () => {
+    describe('compareFiche', () => {
+      it('Should forward to ficheService', () => {
+        const entity = { id: 123 };
+        const entity2 = { id: 456 };
+        jest.spyOn(ficheService, 'compareFiche');
+        comp.compareFiche(entity, entity2);
+        expect(ficheService.compareFiche).toHaveBeenCalledWith(entity, entity2);
+      });
     });
   });
 });

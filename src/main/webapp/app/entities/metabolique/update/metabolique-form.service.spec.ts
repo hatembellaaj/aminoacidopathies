@@ -24,6 +24,7 @@ describe('Metabolique Form Service', () => {
             fait: expect.any(Object),
             laboratoire: expect.any(Object),
             resultat: expect.any(Object),
+            fiche: expect.any(Object),
           })
         );
       });
@@ -38,6 +39,7 @@ describe('Metabolique Form Service', () => {
             fait: expect.any(Object),
             laboratoire: expect.any(Object),
             resultat: expect.any(Object),
+            fiche: expect.any(Object),
           })
         );
       });

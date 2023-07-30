@@ -59,6 +59,9 @@
             <column name="lieu_deces" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+            <column name="fiche_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>
@@ -95,6 +98,7 @@
             <column name="bautre_circonstance_deces" type="boolean"/>
             <column name="np_circonstances_deces" type="boolean"/>
             <column name="lieu_deces" type="string"/>
+            <column name="fiche_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { finalize, map } from 'rxjs/operators';
 
 import { MetaboliqueFormService, MetaboliqueFormGroup } from './metabolique-form.service';
 import { IMetabolique } from '../metabolique.model';
 import { MetaboliqueService } from '../service/metabolique.service';
+import { IFiche } from 'app/entities/fiche/fiche.model';
+import { FicheService } from 'app/entities/fiche/service/fiche.service';
 import { ename } from 'app/entities/enumerations/ename.model';
 import { efait } from 'app/entities/enumerations/efait.model';
 import { elaboratoire } from 'app/entities/enumerations/elaboratoire.model';
@@ -24,13 +26,18 @@ export class MetaboliqueUpdateComponent implements OnInit {
   elaboratoireValues = Object.keys(elaboratoire);
   eResultatValues = Object.keys(eResultat);
 
+  fichesSharedCollection: IFiche[] = [];
+
   editForm: MetaboliqueFormGroup = this.metaboliqueFormService.createMetaboliqueFormGroup();
 
   constructor(
     protected metaboliqueService: MetaboliqueService,
     protected metaboliqueFormService: MetaboliqueFormService,
+    protected ficheService: FicheService,
     protected activatedRoute: ActivatedRoute
   ) {}
+
+  compareFiche = (o1: IFiche | null, o2: IFiche | null): boolean => this.ficheService.compareFiche(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ metabolique }) => {
@@ -38,6 +45,8 @@ export class MetaboliqueUpdateComponent implements OnInit {
       if (metabolique) {
         this.updateForm(metabolique);
       }
+
+      this.loadRelationshipsOptions();
     });
   }
 
@@ -77,5 +86,15 @@ export class MetaboliqueUpdateComponent implements OnInit {
   protected updateForm(metabolique: IMetabolique): void {
     this.metabolique = metabolique;
     this.metaboliqueFormService.resetForm(this.editForm, metabolique);
+
+    this.fichesSharedCollection = this.ficheService.addFicheToCollectionIfMissing<IFiche>(this.fichesSharedCollection, metabolique.fiche);
+  }
+
+  protected loadRelationshipsOptions(): void {
+    this.ficheService
+      .query()
+      .pipe(map((res: HttpResponse<IFiche[]>) => res.body ?? []))
+      .pipe(map((fiches: IFiche[]) => this.ficheService.addFicheToCollectionIfMissing<IFiche>(fiches, this.metabolique?.fiche)))
+      .subscribe((fiches: IFiche[]) => (this.fichesSharedCollection = fiches));
   }
 }

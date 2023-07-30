@@ -5,6 +5,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -54,7 +56,7 @@ public class CassuspecteResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/cassuspectes")
-    public ResponseEntity<CassuspecteDTO> createCassuspecte(@RequestBody CassuspecteDTO cassuspecteDTO) throws URISyntaxException {
+    public ResponseEntity<CassuspecteDTO> createCassuspecte(@Valid @RequestBody CassuspecteDTO cassuspecteDTO) throws URISyntaxException {
         log.debug("REST request to save Cassuspecte : {}", cassuspecteDTO);
         if (cassuspecteDTO.getId() != null) {
             throw new BadRequestAlertException("A new cassuspecte cannot already have an ID", ENTITY_NAME, "idexists");
@@ -79,7 +81,7 @@ public class CassuspecteResource {
     @PutMapping("/cassuspectes/{id}")
     public ResponseEntity<CassuspecteDTO> updateCassuspecte(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody CassuspecteDTO cassuspecteDTO
+        @Valid @RequestBody CassuspecteDTO cassuspecteDTO
     ) throws URISyntaxException {
         log.debug("REST request to update Cassuspecte : {}, {}", id, cassuspecteDTO);
         if (cassuspecteDTO.getId() == null) {
@@ -114,7 +116,7 @@ public class CassuspecteResource {
     @PatchMapping(value = "/cassuspectes/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<CassuspecteDTO> partialUpdateCassuspecte(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody CassuspecteDTO cassuspecteDTO
+        @NotNull @RequestBody CassuspecteDTO cassuspecteDTO
     ) throws URISyntaxException {
         log.debug("REST request to partial update Cassuspecte partially : {}, {}", id, cassuspecteDTO);
         if (cassuspecteDTO.getId() == null) {

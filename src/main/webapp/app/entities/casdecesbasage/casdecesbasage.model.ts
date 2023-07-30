@@ -1,3 +1,4 @@
+import { IFiche } from 'app/entities/fiche/fiche.model';
 import { elienparente } from 'app/entities/enumerations/elienparente.model';
 import { elieudeces } from 'app/entities/enumerations/elieudeces.model';
 
@@ -18,6 +19,7 @@ export interface ICasdecesbasage {
   bautre_circonstance_deces?: boolean | null;
   np_circonstances_deces?: boolean | null;
   lieu_deces?: elieudeces | null;
+  fiche?: Pick<IFiche, 'id'> | null;
 }
 
 export type NewCasdecesbasage = Omit<ICasdecesbasage, 'id'> & { id: null };

@@ -75,6 +75,7 @@ type CassuspecteFormGroupContent = {
   autre_criteres: FormControl<ICassuspecte['autre_criteres']>;
   str_autres_criteres: FormControl<ICassuspecte['str_autres_criteres']>;
   critere_non_precise: FormControl<ICassuspecte['critere_non_precise']>;
+  fiche: FormControl<ICassuspecte['fiche']>;
 };
 
 export type CassuspecteFormGroup = FormGroup<CassuspecteFormGroupContent>;
@@ -125,6 +126,9 @@ export class CassuspecteFormService {
       autre_criteres: new FormControl(cassuspecteRawValue.autre_criteres),
       str_autres_criteres: new FormControl(cassuspecteRawValue.str_autres_criteres),
       critere_non_precise: new FormControl(cassuspecteRawValue.critere_non_precise),
+      fiche: new FormControl(cassuspecteRawValue.fiche, {
+        validators: [Validators.required],
+      }),
     });
   }
 
