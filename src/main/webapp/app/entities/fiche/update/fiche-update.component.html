@@ -166,11 +166,11 @@
                   <label class="form-label" for="field_statut">Statut</label>
                   <select class="form-control" name="statut" formControlName="statut" id="field_statut" data-cy="statut">
                     <option [ngValue]="null"></option>
-                    <option *ngFor="let estatut of estatutValues" [value]="estatut">estatut</option>
+                    <option *ngFor="let estatut of estatutValues" [value]="estatut">{{ estatut }}</option>
                   </select>
                 </div>
 
-                <div class="row mb-3">
+                <div class="row mb-3" *ngIf="editForm.controls.statut.value === 'DECEDE'">
                   <label class="form-label" for="field_date_deces">Date Deces</label>
                   <div class="input-group">
                     <input
@@ -189,7 +189,7 @@
                   </div>
                 </div>
 
-                <div class="row mb-3">
+                <div class="row mb-3" *ngIf="editForm.controls.statut.value === 'DECEDE'">
                   <label class="form-label" for="field_circonstance_deces">Circonstance Deces</label>
                   <select
                     class="form-control"
@@ -199,11 +199,11 @@
                     data-cy="circonstance_deces"
                   >
                     <option [ngValue]="null"></option>
-                    <option *ngFor="let ecirconstance of ecirconstanceValues" [value]="ecirconstance">ecirconstance</option>
+                    <option *ngFor="let ecirconstance of ecirconstanceValues" [value]="ecirconstance">{{ ecirconstance }}</option>
                   </select>
                 </div>
 
-                <div class="row mb-3">
+                <div class="row mb-3" *ngIf="editForm.controls.statut.value === 'DECEDE'">
                   <label class="form-label" for="field_autre_circonstance_deces">Autre Circonstance Deces</label>
                   <input
                     type="text"
@@ -215,11 +215,11 @@
                   />
                 </div>
 
-                <div class="row mb-3">
+                <div class="row mb-3" *ngIf="editForm.controls.statut.value === 'DECEDE'">
                   <label class="form-label" for="field_lieu_deces">Lieu Deces</label>
                   <select class="form-control" name="lieu_deces" formControlName="lieu_deces" id="field_lieu_deces" data-cy="lieu_deces">
                     <option [ngValue]="null"></option>
-                    <option *ngFor="let elieudeces of elieudecesValues" [value]="elieudeces">elieudeces</option>
+                    <option *ngFor="let elieudeces of elieudecesValues" [value]="elieudeces">{{ elieudeces }}</option>
                   </select>
                 </div>
 
@@ -233,7 +233,7 @@
                     data-cy="consanguinite"
                   >
                     <option [ngValue]="null"></option>
-                    <option *ngFor="let econsanguinite of econsanguiniteValues" [value]="econsanguinite">econsanguinite</option>
+                    <option *ngFor="let econsanguinite of econsanguiniteValues" [value]="econsanguinite">{{ econsanguinite }}</option>
                   </select>
                 </div>
 
@@ -247,7 +247,7 @@
                     data-cy="origine_geo_pere_gouvernorat"
                   >
                     <option [ngValue]="null"></option>
-                    <option *ngFor="let egouvernorat of egouvernoratValues" [value]="egouvernorat">egouvernorat</option>
+                    <option *ngFor="let egouvernorat of egouvernoratValues" [value]="egouvernorat">{{ egouvernorat }}</option>
                   </select>
                 </div>
 
@@ -261,7 +261,9 @@
                     data-cy="origine_geo_mere_gouvernorat"
                   >
                     <option [ngValue]="null"></option>
-                    <option *ngFor="let egouvernoratmere of egouvernoratmereValues" [value]="egouvernoratmere">egouvernoratmere</option>
+                    <option *ngFor="let egouvernoratmere of egouvernoratmereValues" [value]="egouvernoratmere">
+                      {{ egouvernoratmere }}
+                    </option>
                   </select>
                 </div>
 
@@ -299,7 +301,7 @@
                     data-cy="couverture_sociale"
                   >
                     <option [ngValue]="null"></option>
-                    <option *ngFor="let ecouverture of ecouvertureValues" [value]="ecouverture">ecouverture</option>
+                    <option *ngFor="let ecouverture of ecouvertureValues" [value]="ecouverture">{{ ecouverture }}</option>
                   </select>
                 </div>
 
@@ -319,12 +321,12 @@
                   <label class="form-label" for="field_activite">Activite</label>
                   <select class="form-control" name="activite" formControlName="activite" id="field_activite" data-cy="activite">
                     <option [ngValue]="null"></option>
-                    <option *ngFor="let eactivite of eactiviteValues" [value]="eactivite">eactivite</option>
+                    <option *ngFor="let eactivite of eactiviteValues" [value]="eactivite">{{ eactivite }}</option>
                   </select>
                 </div>
 
                 <div class="row mb-3">
-                  <label class="form-label" for="field_btravail">Btravail</label>
+                  <label class="form-label" for="field_btravail">Travail</label>
                   <input
                     type="checkbox"
                     class="form-check"
@@ -335,8 +337,8 @@
                   />
                 </div>
 
-                <div class="row mb-3">
-                  <label class="form-label" for="field_travail">Travail</label>
+                <div class="row mb-3" *ngIf="editForm.controls.btravail.value">
+                  <label class="form-label" for="field_travail">Travail (Poste)</label>
                   <input type="text" class="form-control" name="travail" id="field_travail" data-cy="travail" formControlName="travail" />
                 </div>
 
@@ -352,7 +354,7 @@
                   />
                 </div>
 
-                <div class="row mb-3">
+                <div class="row mb-3" *ngIf="editForm.controls.scolarise.value">
                   <label class="form-label" for="field_type_scolarise">Type Scolarise</label>
                   <select
                     class="form-control"
@@ -362,11 +364,11 @@
                     data-cy="type_scolarise"
                   >
                     <option [ngValue]="null"></option>
-                    <option *ngFor="let escolarisetype of escolarisetypeValues" [value]="escolarisetype">escolarisetype</option>
+                    <option *ngFor="let escolarisetype of escolarisetypeValues" [value]="escolarisetype">{{ escolarisetype }}</option>
                   </select>
                 </div>
 
-                <div class="row mb-3">
+                <div class="row mb-3" *ngIf="editForm.controls.scolarise.value">
                   <label class="form-label" for="field_niveau_scolarisation">Niveau Scolarisation</label>
                   <select
                     class="form-control"
@@ -377,7 +379,7 @@
                   >
                     <option [ngValue]="null"></option>
                     <option *ngFor="let eniveauscolarisation of eniveauscolarisationValues" [value]="eniveauscolarisation">
-                      eniveauscolarisation
+                      {{ eniveauscolarisation }}
                     </option>
                   </select>
                 </div>

@@ -59,13 +59,13 @@
           >
             <option [ngValue]="null"></option>
             <option [ngValue]="etablissementOption" *ngFor="let etablissementOption of etablissementsSharedCollection">
-              {{ etablissementOption.id }}
+              {{ etablissementOption.name }}
             </option>
           </select>
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" for="field_servicesante">Servicesante</label>
+          <label class="form-label" for="field_servicesante">Service / SPECIALITE</label>
           <select
             class="form-control"
             id="field_servicesante"
@@ -76,7 +76,7 @@
           >
             <option [ngValue]="null"></option>
             <option [ngValue]="servicesanteOption" *ngFor="let servicesanteOption of servicesantesSharedCollection">
-              {{ servicesanteOption.id }}
+              {{ servicesanteOption.nom }}
             </option>
           </select>
         </div>
