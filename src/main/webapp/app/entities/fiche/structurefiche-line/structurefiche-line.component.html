@@ -43,7 +43,7 @@
       >
         <option *ngIf="!editForm.get('etablissement')!.value" [ngValue]="null" selected></option>
         <option [ngValue]="etablissementOption" *ngFor="let etablissementOption of etablissementsSharedCollection">
-          {{ etablissementOption.id }}
+          {{ etablissementOption.name }}
         </option>
       </select>
     </div>
@@ -67,7 +67,7 @@
       >
         <option [ngValue]="null"></option>
         <option [ngValue]="servicesanteOption" *ngFor="let servicesanteOption of servicesantesSharedCollection">
-          {{ servicesanteOption.id }}
+          {{ servicesanteOption.nom }}
         </option>
       </select>
     </div>
@@ -83,13 +83,13 @@
         [compareWith]="compareMedecin"
       >
         <option [ngValue]="null"></option>
-        <option [ngValue]="medecinOption" *ngFor="let medecinOption of medecinsSharedCollection">{{ medecinOption.id }}</option>
+        <option [ngValue]="medecinOption" *ngFor="let medecinOption of medecinsSharedCollection">{{ medecinOption.nom }}</option>
       </select>
     </div>
 
     <div class="col-sm-1 align-self-end">
       <button type="button" class="btn btn-outline-danger rounded-0 btn-block" id="deleteRow" (click)="deleteStructureficheLine()">
-        <i class="fa fa-trash"></i>
+        <i class="fa fa-trash">Supprimer</i>
       </button>
     </div>
   </form>

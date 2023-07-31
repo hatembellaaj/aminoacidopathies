@@ -15,7 +15,9 @@ import { ServicesanteService } from '../../servicesante/service/servicesante.ser
 import { IMedecin } from '../../medecin/medecin.model';
 import { MedecinService } from '../../medecin/service/medecin.service';
 import { etypestructure } from '../../enumerations/etypestructure.model';
-
+import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs';
+import { HttpResponse } from '@angular/common/http';
 @Component({
   selector: 'jhi-structurefiche-line',
   templateUrl: './structurefiche-line.component.html',
@@ -45,6 +47,7 @@ export class StructureficheLineComponent implements OnInit {
     protected etablissementService: EtablissementService,
     protected servicesanteService: ServicesanteService,
     protected medecinService: MedecinService,
+    protected activatedRoute: ActivatedRoute,
 
     protected ficheService: FicheService
   ) {
@@ -63,10 +66,70 @@ export class StructureficheLineComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('I am in casconfirme-line ');
+
+    this.activatedRoute.data.subscribe(({ structurefiche }) => {
+      this.structurefiche = structurefiche;
+      if (structurefiche) {
+        this.updateForm(structurefiche);
+      }
+
+      this.loadRelationshipsOptions();
+    });
   }
 
   deleteStructureficheLine(): void {
-    alert(this.structureficheLineDeleted);
+    //alert(this.structureficheLineDeleted);
     this.structureficheLineDeleted.emit(this.index);
+  }
+
+  protected updateForm(structurefiche: IStructurefiche): void {
+    this.structurefiche = structurefiche;
+    this.structureficheFormService.resetForm(this.editForm, structurefiche);
+
+    this.etablissementsSharedCollection = this.etablissementService.addEtablissementToCollectionIfMissing<IEtablissement>(
+      this.etablissementsSharedCollection,
+      structurefiche.etablissement
+    );
+    this.servicesantesSharedCollection = this.servicesanteService.addServicesanteToCollectionIfMissing<IServicesante>(
+      this.servicesantesSharedCollection,
+      structurefiche.servicesante
+    );
+    this.medecinsSharedCollection = this.medecinService.addMedecinToCollectionIfMissing<IMedecin>(
+      this.medecinsSharedCollection,
+      structurefiche.medecin
+    );
+  }
+
+  protected loadRelationshipsOptions(): void {
+    this.etablissementService
+      .query()
+      .pipe(map((res: HttpResponse<IEtablissement[]>) => res.body ?? []))
+      .pipe(
+        map((etablissements: IEtablissement[]) =>
+          this.etablissementService.addEtablissementToCollectionIfMissing<IEtablissement>(
+            etablissements,
+            this.structurefiche?.etablissement
+          )
+        )
+      )
+      .subscribe((etablissements: IEtablissement[]) => (this.etablissementsSharedCollection = etablissements));
+
+    this.servicesanteService
+      .query()
+      .pipe(map((res: HttpResponse<IServicesante[]>) => res.body ?? []))
+      .pipe(
+        map((servicesantes: IServicesante[]) =>
+          this.servicesanteService.addServicesanteToCollectionIfMissing<IServicesante>(servicesantes, this.structurefiche?.servicesante)
+        )
+      )
+      .subscribe((servicesantes: IServicesante[]) => (this.servicesantesSharedCollection = servicesantes));
+
+    this.medecinService
+      .query()
+      .pipe(map((res: HttpResponse<IMedecin[]>) => res.body ?? []))
+      .pipe(
+        map((medecins: IMedecin[]) => this.medecinService.addMedecinToCollectionIfMissing<IMedecin>(medecins, this.structurefiche?.medecin))
+      )
+      .subscribe((medecins: IMedecin[]) => (this.medecinsSharedCollection = medecins));
   }
 }
