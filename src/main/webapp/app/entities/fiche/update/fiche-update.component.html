@@ -701,6 +701,17 @@
                     </button>
                   </div>
                 </div>
+
+                <div style="margin-bottom: 10px" *ngFor="let line of metaboliqueLines; let i = index">
+                  <jhi-metabolique-line
+                    [metaboliqueLine]="line"
+                    [index]="i"
+                    (metaboliqueLineDeleted)="handleMetaboliqueLineDeleted($event)"
+                  >
+                  </jhi-metabolique-line>
+                </div>
+
+                <button type="button" (click)="addMetaboliqueLine()">Ajouter Metabolique</button>
               </div>
             </div>
           </div>

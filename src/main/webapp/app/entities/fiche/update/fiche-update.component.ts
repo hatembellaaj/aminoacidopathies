@@ -55,6 +55,11 @@ import { IStructurefiche } from 'app/entities/structurefiche/structurefiche.mode
 import { etypestructure } from 'app/entities/enumerations/etypestructure.model';
 import { elienparente } from 'app/entities/enumerations/elienparente.model';
 import { elien_parente } from 'app/entities/enumerations/elien-parente.model';
+import { IMetabolique } from 'app/entities/metabolique/metabolique.model';
+import { efait } from 'app/entities/enumerations/efait.model';
+import { elaboratoire } from 'app/entities/enumerations/elaboratoire.model';
+import { eResultat } from 'app/entities/enumerations/e-resultat.model';
+import { ename } from 'app/entities/enumerations/ename.model';
 
 @Component({
   selector: 'jhi-fiche-update',
@@ -111,6 +116,7 @@ export class FicheUpdateComponent implements OnInit {
   casConfirmeLines: ICasconfirme[] = [];
   casSuspectesLines: ICassuspecte[] = [];
   structureFicheLines: IStructurefiche[] = [];
+  metaboliqueLines: IMetabolique[] = [];
 
   constructor(
     protected ficheService: FicheService,
@@ -144,6 +150,26 @@ export class FicheUpdateComponent implements OnInit {
     } else {
       this.subscribeToSaveResponse(this.ficheService.create(fiche));
     }
+  }
+
+  addMetaboliqueLine(): void {
+    console.log('Hello this is addMetaboliqueLine');
+    // Create a new instance of the metabolique line
+    const newLine: IMetabolique = {
+      id: 0,
+      name: ename.BRANDT,
+      fait: efait.NP,
+      laboratoire: elaboratoire.LABORATOIREPRIVE,
+      resultat: eResultat.EN_COURS,
+      fiche: this.fiche,
+    };
+
+    // Add the new estimate line to the array
+    this.metaboliqueLines.push(newLine);
+  }
+
+  handleMetaboliqueLineDeleted(index: any): void {
+    this.metaboliqueLines.splice(index, 1);
   }
 
   addCasConfirmeLine(): void {

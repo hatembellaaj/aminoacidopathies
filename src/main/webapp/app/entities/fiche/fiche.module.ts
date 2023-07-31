@@ -8,6 +8,7 @@ import { FicheRoutingModule } from './route/fiche-routing.module';
 import { CasconfirmeLineComponent } from './casconfirme-line/casconfirme-line.component';
 import { CassuspecteLineComponent } from './cassuspecte-line/cassuspecte-line.component';
 import { StructureficheLineComponent } from './structurefiche-line/structurefiche-line.component';
+import { MetaboliqueLineComponent } from './metabolique-line/metabolique-line.component';
 
 @NgModule({
   imports: [SharedModule, FicheRoutingModule],
@@ -19,6 +20,7 @@ import { StructureficheLineComponent } from './structurefiche-line/structurefich
     StructureficheLineComponent,
     CassuspecteLineComponent,
     CasconfirmeLineComponent,
+    MetaboliqueLineComponent,
   ],
 })
 export class FicheModule {}

@@ -43,7 +43,7 @@ export class CassuspecteLineComponent implements OnInit {
     });*/
   }
 
-  deletCasConfirmeLine(): void {
+  deletCasSuspecteLine(): void {
     alert(this.selectedCasSuspecte);
     this.casSuspecteDeleted.emit(this.index);
   }
