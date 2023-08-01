@@ -6,6 +6,9 @@ import { CasconfirmeFormService } from '../../casconfirme/update/casconfirme-for
 import { IFiche } from '../fiche.model';
 import { FicheService } from '../service/fiche.service';
 import { elien_parente } from '../../enumerations/elien-parente.model';
+import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs';
+import { HttpResponse } from '@angular/common/http';
 
 type PartialWithRequiredKeyOf<T extends { id: unknown }> = Partial<Omit<T, 'id'>> & { id: T['id'] };
 
@@ -36,13 +39,14 @@ export class CasconfirmeLineComponent implements OnInit {
   selectedCasConfirme: number = 0;
   isSaving = false;
   casconfirme: ICasconfirme | null = null;
-
+  fichesSharedCollection: IFiche[] = [];
   editForm: CasconfirmeFormGroup = this.casconfirmeFormService.createCasconfirmeFormGroup();
 
   constructor(
     protected casconfirmeService: CasconfirmeService,
     protected casconfirmeFormService: CasconfirmeFormService,
-    protected ficheService: FicheService
+    protected ficheService: FicheService,
+    protected activatedRoute: ActivatedRoute
   ) {
     console.log('I am in casconfirme-line constructor ');
   }
@@ -51,10 +55,32 @@ export class CasconfirmeLineComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('I am in casconfirme-line ');
+
+    this.activatedRoute.data.subscribe(({ casconfirme }) => {
+      this.casconfirme = casconfirme;
+      if (casconfirme) {
+        this.updateForm(casconfirme);
+      }
+
+      this.loadRelationshipsOptions();
+    });
   }
 
   deletCasConfirmeLine(): void {
     alert(this.selectedCasConfirme);
     this.casConfirmeDeleted.emit(this.index);
+  }
+
+  protected updateForm(casconfirme: ICasconfirme): void {
+    this.casconfirme = casconfirme;
+    this.casconfirmeFormService.resetForm(this.editForm, casconfirme);
+  }
+
+  protected loadRelationshipsOptions(): void {
+    this.ficheService
+      .query()
+      .pipe(map((res: HttpResponse<IFiche[]>) => res.body ?? []))
+      .pipe(map((fiches: IFiche[]) => this.ficheService.addFicheToCollectionIfMissing<IFiche>(fiches, this.casconfirme?.fiche)))
+      .subscribe((fiches: IFiche[]) => (this.fichesSharedCollection = fiches));
   }
 }

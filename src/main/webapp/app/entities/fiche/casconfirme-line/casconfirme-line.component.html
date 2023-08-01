@@ -25,7 +25,7 @@
       <label class="form-label" for="field_lien_parente">Lien Parente</label>
       <select class="form-control" name="lien_parente" formControlName="lien_parente" id="field_lien_parente" data-cy="lien_parente">
         <option [ngValue]="null"></option>
-        <option *ngFor="let elien_parente of elien_parenteValues" [value]="elien_parente">elien_parente</option>
+        <option *ngFor="let elien_parente of elien_parenteValues" [value]="elien_parente">{{ elien_parente }}</option>
       </select>
     </div>
   </form>
